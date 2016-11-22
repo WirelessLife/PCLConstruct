@@ -7,7 +7,7 @@ using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
 using PCLConstruct.Api.DataObjects;
-using PCLConstruct.Api.Models;
+
 using Owin;
 
 namespace PCLConstruct.Api

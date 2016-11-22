@@ -1,50 +1,55 @@
-﻿using System.Linq;
+﻿using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.OData;
 using Microsoft.Azure.Mobile.Server;
 using PCLConstruct.Api.DataObjects;
-using PCLConstruct.Api.Models;
+
 
 namespace PCLConstruct.Api.Controllers
 {
     public class FormController : TableController<Form>
     {
+        
+
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
-            MobileServiceContext context = new MobileServiceContext();
-            DomainManager = new StorageDomainManager<Form>("", "formTable", Request);
+            
+
+
+            DomainManager = new StorageDomainManager<Form>(Constants.TableStorageConnectionString, Constants.FormTableName , Request);
         }
 
-        // GET tables/TodoItem
-        public IQueryable<Form> GetAllTodoItems()
+        // GET tables/Form
+        public IQueryable<Form> GetAllForm()
         {
             return Query();
         }
 
-        // GET tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public SingleResult<Form> GetTodoItem(string id)
+        // GET tables/Form/48D68C86-6EA6-4C25-AA33-223FC9A27959
+        public SingleResult<Form> GetForm(string id)
         {
             return Lookup(id);
         }
 
-        // PATCH tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public Task<Form> PatchTodoItem(string id, Delta<Form> patch)
+        // PATCH tables/Form/48D68C86-6EA6-4C25-AA33-223FC9A27959
+        public Task<Form> PatchForm(string id, Delta<Form> patch)
         {
             return UpdateAsync(id, patch);
         }
 
-        // POST tables/TodoItem
-        public async Task<IHttpActionResult> PostTodoItem(Form item)
+        // POST tables/Form
+        public async Task<IHttpActionResult> PostForm(Form item)
         {
             Form current = await InsertAsync(item);
             return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }
 
-        // DELETE tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public Task DeleteTodoItem(string id)
+        // DELETE tables/Form/48D68C86-6EA6-4C25-AA33-223FC9A27959
+        public Task DeleteForm(string id)
         {
             return DeleteAsync(id);
         }
