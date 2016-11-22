@@ -8,14 +8,40 @@
       <ColumnDefinition Width="80*" />
     </Grid.ColumnDefinitions>
     <StackLayout Grid.Column="0" BackgroundColor="#01016d">
-      <Label Text="Anna Song" TextColor="#FFF" />
-      <ListView x:Name="JobList"
-                ItemTapped="OnJobItemTapped"
-                ItemsSource="{Binding .}" />
+      <Label x:Name="AdministratorNameLabel" Text="{Binding AdministratorName}" HorizontalTextAlignment="Start" FontSize="20" TextColor="#FFF" />
+      <ListView x:Name="JobList">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <ViewCell.View>
+                <StackLayout Orientation="Vertical">
+                  <Label Text="{Binding ProjectDisplayValue}" TextColor="#FFF"></Label>
+                  <Label Text="{Binding ProjectLocation}" TextColor="#DDD"></Label>
+                </StackLayout>
+              </ViewCell.View>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
     </StackLayout>
     <Label Grid.Column="1"
-           Text="Hello World"
+           Text="Select a project to view list of craftworkers arriving today"
            VerticalOptions="Center"
            HorizontalOptions="Center" />
+    <ListView x:Name="CraftWorkerList"
+              Grid.Column="1">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <ViewCell.View>
+              <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding Status}"></Label>
+                <Label Text="{Binding CraftWorkerName}"></Label>
+              </StackLayout>
+            </ViewCell.View>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
   </Grid>
 </ContentPage>
