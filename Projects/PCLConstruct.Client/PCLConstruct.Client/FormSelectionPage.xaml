@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PCLConstruct.Client.FormSelectionPage">
+
+  <Grid>
+    
+    <Grid.Padding>
+      <OnPlatform x:TypeArguments="Thickness" iOS="0,20,0,0"/>
+    </Grid.Padding>
+    
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="auto" />
+    </Grid.RowDefinitions>
+
+    <ScrollView Grid.Row="0">
+      <ListView x:Name="lstForms">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <TextCell Text="{Binding name}" />
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </ScrollView>
+    
+    <Button
+         Grid.Row="1"
+         Text="Submit"
+         HorizontalOptions="Center"
+         VerticalOptions="Center" />
+    
+  </Grid>
+
+
+  
+</ContentPage>

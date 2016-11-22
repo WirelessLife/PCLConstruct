@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PCLConstruct.Client.FormViewer">
+  <Grid x:Name="ContentGrid">
+
+    <Grid.Padding>
+      <OnPlatform x:TypeArguments="Thickness" iOS="0,20,0,0"/>
+    </Grid.Padding>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="auto" />
+    </Grid.RowDefinitions>
+
+    <ContentView x:Name="FormContent" Grid.Row="0"></ContentView>
+    <Button Text="DummyButton" Grid.Row="1" />
+    
+  </Grid>
+  
+</ContentPage>
