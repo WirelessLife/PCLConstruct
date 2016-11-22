@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace PCLConstruct.Client
 {
@@ -13,6 +7,14 @@ namespace PCLConstruct.Client
         public CraftWorkerArrivalList()
         {
             InitializeComponent();
+
+            this.BindingContext = new[] { "a", "b", "c" };
+        }
+
+        public void OnJobItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e == null) return; // has been set to null, do not 'process' tapped event
+            ((ListView)sender).SelectedItem = null; // de-select the row
         }
     }
 }
