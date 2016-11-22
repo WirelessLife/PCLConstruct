@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E2B2C7DB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCLConstruct.UserRA", "PCLConstruct.UserRA\PCLConstruct.UserRA.csproj", "{F998C683-708C-4E32-AF3A-6BE53CE7AC20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCLConstruct.Contracts", "..\..\Projects\PClConstruct.Contracts\PCLConstruct.Contracts.csproj", "{FBD5B43B-522A-431E-8342-A8E961FDDE86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,11 +21,16 @@ Global
 		{F998C683-708C-4E32-AF3A-6BE53CE7AC20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F998C683-708C-4E32-AF3A-6BE53CE7AC20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F998C683-708C-4E32-AF3A-6BE53CE7AC20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBD5B43B-522A-431E-8342-A8E961FDDE86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBD5B43B-522A-431E-8342-A8E961FDDE86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBD5B43B-522A-431E-8342-A8E961FDDE86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBD5B43B-522A-431E-8342-A8E961FDDE86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F998C683-708C-4E32-AF3A-6BE53CE7AC20} = {2AF19280-F7C7-480B-A0B5-654C7D6446BC}
+		{FBD5B43B-522A-431E-8342-A8E961FDDE86} = {2AF19280-F7C7-480B-A0B5-654C7D6446BC}
 	EndGlobalSection
 EndGlobal
