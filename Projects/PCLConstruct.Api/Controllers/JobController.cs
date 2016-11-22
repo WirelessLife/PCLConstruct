@@ -9,37 +9,37 @@ using PCLConstruct.Api.Models;
 
 namespace PCLConstruct.Api.Controllers
 {
-    public class TodoItemController : TableController<TodoItem>
+    public class JobController : TableController<Job>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
             MobileServiceContext context = new MobileServiceContext();
-            DomainManager = new EntityDomainManager<TodoItem>(context, Request);
+            DomainManager = new StorageDomainManager<Job>("", "jobTable",Request);
         }
 
         // GET tables/TodoItem
-        public IQueryable<TodoItem> GetAllTodoItems()
+        public IQueryable<Job> GetAllTodoItems()
         {
             return Query();
         }
 
         // GET tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public SingleResult<TodoItem> GetTodoItem(string id)
+        public SingleResult<Job> GetTodoItem(string id)
         {
             return Lookup(id);
         }
 
         // PATCH tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public Task<TodoItem> PatchTodoItem(string id, Delta<TodoItem> patch)
+        public Task<Job> PatchTodoItem(string id, Delta<Job> patch)
         {
             return UpdateAsync(id, patch);
         }
 
         // POST tables/TodoItem
-        public async Task<IHttpActionResult> PostTodoItem(TodoItem item)
+        public async Task<IHttpActionResult> PostTodoItem(Job item)
         {
-            TodoItem current = await InsertAsync(item);
+            Job current = await InsertAsync(item);
             return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }
 

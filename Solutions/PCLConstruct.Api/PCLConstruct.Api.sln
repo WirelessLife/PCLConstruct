@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCLConstruct.Api.Tests", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCLConstruct.Api", "..\..\Projects\PCLConstruct.Api\PCLConstruct.Api.csproj", "{A3DD1FB9-C0B8-45CD-8BE1-5452342B5DA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCLConstruct.ConfigService", "..\..\..\XamarinHack\Projects\PCLConstruct.ConfigService\PCLConstruct.ConfigService.csproj", "{C4E080BF-6F7D-435B-B0AF-AD33DD5550D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCLConstruct.TelemetryService", "..\..\..\XamarinHack\Projects\PCLConstruct.TelemetryService\PCLConstruct.TelemetryService.csproj", "{0BC24965-BE2E-4653-A906-A5E045C07060}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,14 @@ Global
 		{A3DD1FB9-C0B8-45CD-8BE1-5452342B5DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3DD1FB9-C0B8-45CD-8BE1-5452342B5DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3DD1FB9-C0B8-45CD-8BE1-5452342B5DA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4E080BF-6F7D-435B-B0AF-AD33DD5550D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4E080BF-6F7D-435B-B0AF-AD33DD5550D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4E080BF-6F7D-435B-B0AF-AD33DD5550D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4E080BF-6F7D-435B-B0AF-AD33DD5550D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BC24965-BE2E-4653-A906-A5E045C07060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BC24965-BE2E-4653-A906-A5E045C07060}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BC24965-BE2E-4653-A906-A5E045C07060}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BC24965-BE2E-4653-A906-A5E045C07060}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +44,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E03E615F-4F35-47AF-8CB8-50482AFDAF2D} = {1D7DB1E3-4008-49EA-8D91-98F6597177EB}
 		{A3DD1FB9-C0B8-45CD-8BE1-5452342B5DA4} = {72161BE0-197E-443A-A6FA-192CEF7FFC6C}
+		{C4E080BF-6F7D-435B-B0AF-AD33DD5550D2} = {72161BE0-197E-443A-A6FA-192CEF7FFC6C}
+		{0BC24965-BE2E-4653-A906-A5E045C07060} = {72161BE0-197E-443A-A6FA-192CEF7FFC6C}
 	EndGlobalSection
 EndGlobal
