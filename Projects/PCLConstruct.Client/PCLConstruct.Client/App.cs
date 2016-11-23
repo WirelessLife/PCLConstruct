@@ -1,4 +1,5 @@
 ﻿using PCLConstruct.Client.Security;
+using PCLConstruct.Client.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace PCLConstruct.Client
                 }
             };
             
-            MainPage = new NavigationPage(content);
+            MainPage = new NavigationPage(new PinAuthView());
             //AzureADAuth auth = new AzureADAuth();
             //auth.AuthenticateUser(MainPage);
             AzureADAuth auth = new AzureADAuth();
