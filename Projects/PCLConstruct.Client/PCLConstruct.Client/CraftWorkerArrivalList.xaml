@@ -14,7 +14,7 @@
 
     <StackLayout Grid.Column="0" BackgroundColor="#54534A" Grid.RowSpan="2">
       <Label x:Name="AdministratorNameLabel" Text="{Binding AdministratorName}" HorizontalTextAlignment="Start" FontSize="20" TextColor="#FFF" Margin="10, 10, 0, 0"/>
-      <ListView x:Name="JobList" HasUnevenRows="True" RowHeight="10">
+      <ListView x:Name="JobList" HasUnevenRows="True">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
@@ -45,7 +45,8 @@
            HorizontalOptions="Start" />
     <ListView x:Name="CraftWorkerList"
               Grid.Column="1"
-              Grid.Row="1">
+              Grid.Row="1"
+              HasUnevenRows="True">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
@@ -55,7 +56,6 @@
                   <ColumnDefinition  Width="Auto" ></ColumnDefinition>
                   <ColumnDefinition  Width="60*" ></ColumnDefinition>
                   <ColumnDefinition  Width="40*" ></ColumnDefinition>
-
                 </Grid.ColumnDefinitions>
                 <!--<Label Text="{Binding Status}" Grid.Column="0"></Label>-->
                 <Image Source="{Binding ImageName}" Grid.Column="0" WidthRequest="32" HeightRequest="32" VerticalOptions="Center" />
