@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PCLConstruct.Client.CraftWorkerArrivalList">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="20*" />
+      <ColumnDefinition Width="80*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+      
+    <StackLayout Grid.Column="0" BackgroundColor="#01016d" Grid.RowSpan="2">
+      <Label x:Name="AdministratorNameLabel" Text="{Binding AdministratorName}" HorizontalTextAlignment="Start" FontSize="20" TextColor="#FFF" />
+      <ListView x:Name="JobList">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <ViewCell.View>
+                <StackLayout Orientation="Vertical">
+                  <Label Text="{Binding ProjectDisplayValue}" TextColor="#FFF"></Label>
+                  <Label Text="{Binding ProjectLocation}" TextColor="#DDD"></Label>
+                </StackLayout>
+              </ViewCell.View>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+    
+    <Label x:Name="WelcomeLabel"
+           Grid.Column="1"
+           Text="Select a project to view list of craftworkers arriving today"
+           VerticalOptions="Center"
+           HorizontalOptions="Center" 
+            Grid.Row="1"/>
+    <Label x:Name="ListLable"
+           Grid.Column="1"
+           Grid.Row="0"
+           Text="Craftworkers Arriving Today"
+           FontSize="18"
+           VerticalOptions="Center"
+           HorizontalOptions="Start" />
+    <ListView x:Name="CraftWorkerList"
+              Grid.Column="1"
+              Grid.Row="1">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <ViewCell.View>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition  Width="Auto" ></ColumnDefinition>
+                  <ColumnDefinition  Width="60*" ></ColumnDefinition>
+                  <ColumnDefinition  Width="40*" ></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <!--<Label Text="{Binding Status}" Grid.Column="0"></Label>-->
+                <Image Source="{Binding ImageName}" Grid.Column="0" WidthRequest="32" HeightRequest="32" VerticalOptions="Start" />
+                <Label Text="{Binding CraftWorkerName}" Grid.Column="1"></Label>
+                <Label Text="{Binding CraftWorkerID}" Grid.Column="2"></Label>
+              </Grid>
+              <!--<StackLayout Orientation="Horizontal">
+                <Label Text="{Binding Status}"></Label>
+                <Label Text="{Binding CraftWorkerName}"></Label>
+              </StackLayout>-->
+            </ViewCell.View>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </Grid>
+</ContentPage>

@@ -12,6 +12,16 @@ namespace PCLConstruct.Client
     {
         public App()
         {
+            Button CraftWorkerArrivalNavButton = new Button
+            {
+                Text = "Go to Craft Worker Arrival List",
+            };
+
+            CraftWorkerArrivalNavButton.Clicked += (sender, args) =>
+            {
+                MainPage.Navigation.PushAsync(new CraftWorkerArrivalList());
+            };
+
             // The root page of your application
             var content = new ContentPage
             {
@@ -23,7 +33,8 @@ namespace PCLConstruct.Client
                         new Label {
                             HorizontalTextAlignment = TextAlignment.Center,
                             Text = "Welcome to Xamarin Forms!"
-                        }
+                        },
+                        CraftWorkerArrivalNavButton
                     }
                 }
             };
