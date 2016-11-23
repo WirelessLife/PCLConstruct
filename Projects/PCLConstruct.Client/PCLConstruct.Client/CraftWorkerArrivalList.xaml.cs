@@ -1,5 +1,6 @@
 ﻿namespace PCLConstruct.Client
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using Xamarin.Forms;
@@ -10,6 +11,11 @@
     public partial class CraftWorkerArrivalList : ContentPage, INotifyPropertyChanged
     {
         /// <summary>
+        /// Determines if the tray is already opened
+        /// </summary>
+        private bool TrayOpened = true;
+
+        /// <summary>
         /// Initializes the Craft Worker Arrival page
         /// </summary>
         /// <param name="userName">the username of the authenticated user</param>
@@ -19,6 +25,11 @@
         public CraftWorkerArrivalList(string userName)
         {
             InitializeComponent();
+
+            this.ExpandTray.GestureRecognizers.Add(new TapGestureRecognizer(this.ExpandTrayOnTap));
+            //this.CollapseTray.Clicked += CollapseTray_Clicked;
+            this.CollapseTray.GestureRecognizers.Add(new TapGestureRecognizer(this.CollapseTrayOnTap));
+
             this.ListLabel.IsVisible = false;
 
             this.JobList.ItemsSource = new List<Job>
@@ -39,7 +50,7 @@
                     ProjectNumber = "150008",
                     ProjectName = "Test Project C",
                     ProjectLocation = "Edmonton, Alberta"
-                },                
+                },
                 new Job
                 {
                     ProjectNumber = "150008",
@@ -53,6 +64,46 @@
             this.JobList.ItemSelected += this.JobList_ItemSelected;
 
             this.CraftWorkerList.ItemSelected += this.CraftWorkerList_ItemSelected;
+        }
+
+        private void CollapseTrayOnTap(View arg1, object arg2)
+        {
+            this.HideTray();
+        }
+
+        private void ExpandTrayOnTap(View arg1, object arg2)
+        {
+            this.ShowTray();
+        }
+
+        private void HideTray()
+        {
+            //Portrait
+            if (height > width)
+            {
+                this.TrayOpened = false;
+
+                this.JobListStackLayout.IsVisible = false;
+                this.CraftWorkersStackLayout.IsVisible = true;
+
+                this.MasterColumn.Width = GridLength.Auto;
+                this.DetailColumn.Width = GridLength.Star;
+
+            }
+        }
+
+        private void ShowTray()
+        {
+            if (height > width)
+            {
+                this.TrayOpened = true;
+
+                this.JobListStackLayout.IsVisible = true;
+                this.CraftWorkersStackLayout.IsVisible = false;
+
+                this.MasterColumn.Width = GridLength.Star;
+                this.DetailColumn.Width = GridLength.Auto;
+            }
         }
 
         /// <summary>
@@ -135,7 +186,56 @@
                     IDValue ="45435-654778"
                 }
             };
+
+            //If portrait, hide the master column and bring out the detial. 
+            this.HideTray();
         }
+
+        private double width = 0;
+        private double height = 0;
+
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height); //must be called
+
+            if (this.width != width || this.height != height)
+            {
+                this.width = width;
+                this.height = height;
+            }
+            else
+            {
+                // If the width / height is the same, excape early.
+                return;
+            }
+
+            if (height > width)
+            {
+                // This is our portrait view
+                this.TrayOpened = true;
+
+                this.ExpandTray.IsVisible = true;
+                this.CollapseTray.IsVisible = true;
+
+                this.DetailColumn.Width = GridLength.Star;
+                this.MasterColumn.Width = GridLength.Auto;
+
+                this.JobListStackLayout.IsVisible = true;
+                this.CraftWorkersStackLayout.IsVisible = false;
+            }
+            else
+            {
+                // This is our landscape view
+                this.ExpandTray.IsVisible = false;
+                this.CollapseTray.IsVisible = false;
+
+                this.JobListStackLayout.IsVisible = true;
+                this.CraftWorkersStackLayout.IsVisible = true;
+                this.DetailColumn.Width = new GridLength(75.0, GridUnitType.Star);
+                this.MasterColumn.Width = new GridLength(25.0, GridUnitType.Star);
+            }
+        }
+
     }
 
     /// <summary>
@@ -229,7 +329,7 @@
         {
             get
             {
-                switch(this.Status)
+                switch (this.Status)
                 {
                     case "Not Started":
                         return "NotStarted.png";
@@ -242,6 +342,8 @@
                 return "NotStarted.png";
             }
         }
+
+
 
     }
 }
