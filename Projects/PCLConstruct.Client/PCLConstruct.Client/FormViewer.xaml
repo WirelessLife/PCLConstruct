@@ -13,8 +13,15 @@
       <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
 
-    <ContentView x:Name="FormContent" Grid.Row="0"></ContentView>
-    <Button Text="DummyButton" Grid.Row="1" />
+    <ScrollView Grid.Row="0">
+      <ContentView x:Name="FormContent">
+        <ContentView.Padding>
+          <OnPlatform x:TypeArguments="Thickness" iOS="25,25,25,25"/>
+        </ContentView.Padding>
+      </ContentView>
+    </ScrollView>
+    
+    <Button Text="Help" Grid.Row="1" />
     
   </Grid>
   

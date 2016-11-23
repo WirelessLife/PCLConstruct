@@ -36,6 +36,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Controls\FormCompletionIndicator.cs" />
+    <Compile Include="Controls\FormLabel.cs" />
+    <Compile Include="Controls\FormBoolean.cs" />
+    <Compile Include="Controls\FormDate.cs" />
+    <Compile Include="Controls\FormDropDownList.cs" />
+    <Compile Include="Controls\FormSectionLabel.cs" />
+    <Compile Include="Controls\FormEntry.cs" />
     <Compile Include="FormSelectionPage.xaml.cs">
       <DependentUpon>FormSelectionPage.xaml</DependentUpon>
     </Compile>
