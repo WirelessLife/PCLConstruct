@@ -1,8 +1,5 @@
 ﻿using PCLConstruct.Client.Security;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Xamarin.Forms;
 
@@ -10,52 +7,40 @@ namespace PCLConstruct.Client
 {
     public class App : Application
     {
+        AzureADAuth auth = new AzureADAuth();
+
         public App()
         {
-            Button CraftWorkerArrivalNavButton = new Button
-            {
-                Text = "Go to Craft Worker Arrival List",
-            };
+            auth.ClearCache();
 
-            CraftWorkerArrivalNavButton.Clicked += (sender, args) =>
+            ContentPage content = new ContentPage
             {
-                MainPage.Navigation.PushAsync(new CraftWorkerArrivalList());
-            };
-
-            // The root page of your application
-            var content = new ContentPage
-            {
-                Title = "PCLConstruct.Client",
+                Title = "PCL Electronic Onboarding",
                 Content = new StackLayout
                 {
                     VerticalOptions = LayoutOptions.Center,
                     Children = {
-                        new Label {
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms!"
-                        },
-                        CraftWorkerArrivalNavButton
+                        new ActivityIndicator()
+                        {
+                            IsRunning = true,
+                            Color = Color.Black
+                        }
                     }
                 }
             };
-            
+
             MainPage = new NavigationPage(content);
-            //AzureADAuth auth = new AzureADAuth();
-            //auth.AuthenticateUser(MainPage);
-            AzureADAuth auth = new AzureADAuth();
-            auth.ClearCache();
         }
 
         protected override void OnStart()
         {
-            AzureADAuth auth = new AzureADAuth();
+            auth.UserAuthenticated += OnUserAuthenticated;
             auth.AuthenticateUser();
 
-            
             //if (string.IsNullOrEmpty(auth.authResult.AccessToken))
             //{
-           //     MainPage.DisplayAlert("Error", "Failed to get Token", "OK");
-           // }
+            //     MainPage.DisplayAlert("Error", "Failed to get Token", "OK");
+            // }
 
             //AzureADAuth auth = new AzureADAuth();
             //auth.ClearCache();
@@ -65,11 +50,18 @@ namespace PCLConstruct.Client
         protected override void OnSleep()
         {
             // Handle when your app sleeps
+            auth.UserAuthenticated -= OnUserAuthenticated;
         }
 
         protected override void OnResume()
         {
             // Handle when your app resumes
+            auth.UserAuthenticated += OnUserAuthenticated;
+        }
+
+        public void OnUserAuthenticated(object sender, EventArgs e)
+        {
+            MainPage.Navigation.PushAsync(new CraftWorkerArrivalList(auth.UserName));
         }
     }
 }

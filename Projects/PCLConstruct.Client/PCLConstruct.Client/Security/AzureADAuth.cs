@@ -18,14 +18,18 @@ namespace PCLConstruct.Client.Security
         private string returnUri = SettingsHelper.GetConfig("ReturnURI");
         private string graphResourceUri = SettingsHelper.GetConfig("GraphURI");
         public AuthenticationResult authResult = null;
-        
+
+        /// <summary>
+        /// This given and the family name for the authenticated user
+        /// </summary>
+        public string UserName { get; set; }
 
         public async void AuthenticateUser()
         {
             var auth = DependencyService.Get<IAuthenticator>();
             authResult = await auth.Authenticate(authority, graphResourceUri, clientId, returnUri);
-            var userName = authResult.UserInfo.GivenName + " " + authResult.UserInfo.FamilyName;
-            
+            this.UserName = authResult.UserInfo.GivenName + " " + authResult.UserInfo.FamilyName;
+            OnAuthenticated(new EventArgs());
         }
 
         public void ClearCache()
@@ -38,6 +42,17 @@ namespace PCLConstruct.Client.Security
         {
             httpClient.DefaultRequestHeaders.Add("Bearer", authResult.AccessToken);
         }
+
+        protected virtual void OnAuthenticated(EventArgs e)
+        {
+            EventHandler<EventArgs> handler = UserAuthenticated;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        public event EventHandler<EventArgs> UserAuthenticated;
     }
 
     public interface IAuthenticator

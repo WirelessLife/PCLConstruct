@@ -4,23 +4,23 @@
              x:Class="PCLConstruct.Client.CraftWorkerArrivalList">
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="20*" />
-      <ColumnDefinition Width="80*" />
+      <ColumnDefinition Width="25*" />
+      <ColumnDefinition Width="75*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-      
-    <StackLayout Grid.Column="0" BackgroundColor="#01016d" Grid.RowSpan="2">
-      <Label x:Name="AdministratorNameLabel" Text="{Binding AdministratorName}" HorizontalTextAlignment="Start" FontSize="20" TextColor="#FFF" />
-      <ListView x:Name="JobList">
+
+    <StackLayout Grid.Column="0" BackgroundColor="#54534A" Grid.RowSpan="2">
+      <Label x:Name="AdministratorNameLabel" Text="{Binding AdministratorName}" HorizontalTextAlignment="Start" FontSize="20" TextColor="#FFF" Margin="10, 10, 0, 0"/>
+      <ListView x:Name="JobList" HasUnevenRows="True" RowHeight="10">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
               <ViewCell.View>
-                <StackLayout Orientation="Vertical">
-                  <Label Text="{Binding ProjectDisplayValue}" TextColor="#FFF"></Label>
+                <StackLayout Orientation="Vertical" Padding="10, 5, 10, 5">
+                  <Label Text="{Binding ProjectDisplayValue}" TextColor="#FFF" Margin="0,0,0,-8"></Label>
                   <Label Text="{Binding ProjectLocation}" TextColor="#DDD"></Label>
                 </StackLayout>
               </ViewCell.View>
@@ -29,14 +29,14 @@
         </ListView.ItemTemplate>
       </ListView>
     </StackLayout>
-    
+
     <Label x:Name="WelcomeLabel"
            Grid.Column="1"
            Text="Select a project to view list of craftworkers arriving today"
            VerticalOptions="Center"
-           HorizontalOptions="Center" 
+           HorizontalOptions="Center"
             Grid.Row="1"/>
-    <Label x:Name="ListLable"
+    <Label x:Name="ListLabel"
            Grid.Column="1"
            Grid.Row="0"
            Text="Craftworkers Arriving Today"
@@ -58,9 +58,9 @@
 
                 </Grid.ColumnDefinitions>
                 <!--<Label Text="{Binding Status}" Grid.Column="0"></Label>-->
-                <Image Source="{Binding ImageName}" Grid.Column="0" WidthRequest="32" HeightRequest="32" VerticalOptions="Start" />
-                <Label Text="{Binding CraftWorkerName}" Grid.Column="1"></Label>
-                <Label Text="{Binding CraftWorkerID}" Grid.Column="2"></Label>
+                <Image Source="{Binding ImageName}" Grid.Column="0" WidthRequest="32" HeightRequest="32" VerticalOptions="Center" />
+                <Label Text="{Binding CraftWorkerName}" Grid.Column="1" VerticalOptions="Center"></Label>
+                <Label Text="{Binding CraftWorkerID}" Grid.Column="2" VerticalOptions="Center"></Label>
               </Grid>
               <!--<StackLayout Orientation="Horizontal">
                 <Label Text="{Binding Status}"></Label>
