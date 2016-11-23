@@ -6,9 +6,16 @@ namespace PCLConstruct.Client
 {
     public partial class CraftWorkerArrivalList : ContentPage, INotifyPropertyChanged
     {
+        public bool IsJobNotSelected {
+            get {
+                return JobList.SelectedItem == null;
+            }
+        }
+
         public CraftWorkerArrivalList()
         {
             InitializeComponent();
+            this.ListLable.IsVisible = false;
 
             this.JobList.ItemsSource = new List<Job>
             {
@@ -50,8 +57,12 @@ namespace PCLConstruct.Client
         {
             if (e.SelectedItem == null)
             {
+                this.WelcomeLabel.IsVisible = true;
+                this.ListLable.IsVisible = false;
                 return;
             }
+            this.WelcomeLabel.IsVisible = false;
+            this.ListLable.IsVisible = true;
 
             this.CraftWorkerList.ItemsSource = new List<CraftWorker>
             {
@@ -59,12 +70,37 @@ namespace PCLConstruct.Client
                 {
                     FirstName = "Anna",
                     LastName = "Song",
-                    Status = "Completed"
+                    Status = "Completed",
+                    IDType = "Drivers licence",
+                    IDValue = "123456789"
                 },
                 new CraftWorker {
                     FirstName = "Kyle",
                     LastName = "Franklin",
-                    Status = "Not Started"
+                    Status = "Not Started",
+                    IDType = "Union ID",
+                    IDValue ="789456123"
+                },
+                new CraftWorker {
+                    FirstName = "Kennedy",
+                    LastName = "Roulston",
+                    Status = "Incomplete",
+                    IDType = "Union ID",
+                    IDValue ="6743"
+                },
+                new CraftWorker {
+                    FirstName = "Steven",
+                    LastName = "Briggs",
+                    Status = "Not Started",
+                    IDType = "Drivers License",
+                    IDValue ="54546-654654"
+                },
+                new CraftWorker {
+                    FirstName = "Kevin",
+                    LastName = "Chew",
+                    Status = "Completed",
+                    IDType = "Union ID",
+                    IDValue ="45435-654778"
                 }
             };
         }
@@ -90,7 +126,9 @@ namespace PCLConstruct.Client
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Status { get; set; }
+        public string IDType { get; set; }
 
+        public string IDValue { get; set; }
         public string CraftWorkerName
         {
             get
@@ -98,5 +136,31 @@ namespace PCLConstruct.Client
                 return this.LastName + ", " + this.FirstName;
             }
         }
+        public string CraftWorkerID
+        {
+            get
+            {
+                return this.IDType + " - " + this.IDValue;
+            }
+        }
+
+        public string ImageName
+        {
+            get
+            {
+                switch(this.Status)
+                {
+                    case "Not Started":
+                        return "NotStarted.png";
+                    case "Completed":
+                        return "Completed.png";
+                    case "Incomplete":
+                        return "Incompleted.png";
+                }
+
+                return "NotStarted.png";
+            }
+        }
+
     }
 }

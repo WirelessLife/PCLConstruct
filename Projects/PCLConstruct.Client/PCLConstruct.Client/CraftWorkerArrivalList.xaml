@@ -7,7 +7,12 @@
       <ColumnDefinition Width="20*" />
       <ColumnDefinition Width="80*" />
     </Grid.ColumnDefinitions>
-    <StackLayout Grid.Column="0" BackgroundColor="#01016d">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+      
+    <StackLayout Grid.Column="0" BackgroundColor="#01016d" Grid.RowSpan="2">
       <Label x:Name="AdministratorNameLabel" Text="{Binding AdministratorName}" HorizontalTextAlignment="Start" FontSize="20" TextColor="#FFF" />
       <ListView x:Name="JobList">
         <ListView.ItemTemplate>
@@ -24,20 +29,43 @@
         </ListView.ItemTemplate>
       </ListView>
     </StackLayout>
-    <Label Grid.Column="1"
+    
+    <Label x:Name="WelcomeLabel"
+           Grid.Column="1"
            Text="Select a project to view list of craftworkers arriving today"
            VerticalOptions="Center"
-           HorizontalOptions="Center" />
+           HorizontalOptions="Center" 
+            Grid.Row="1"/>
+    <Label x:Name="ListLable"
+           Grid.Column="1"
+           Grid.Row="0"
+           Text="Craftworkers Arriving Today"
+           FontSize="18"
+           VerticalOptions="Center"
+           HorizontalOptions="Start" />
     <ListView x:Name="CraftWorkerList"
-              Grid.Column="1">
+              Grid.Column="1"
+              Grid.Row="1">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
             <ViewCell.View>
-              <StackLayout Orientation="Horizontal">
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition  Width="Auto" ></ColumnDefinition>
+                  <ColumnDefinition  Width="60*" ></ColumnDefinition>
+                  <ColumnDefinition  Width="40*" ></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <!--<Label Text="{Binding Status}" Grid.Column="0"></Label>-->
+                <Image Source="{Binding ImageName}" Grid.Column="0" WidthRequest="32" HeightRequest="32" VerticalOptions="Start" />
+                <Label Text="{Binding CraftWorkerName}" Grid.Column="1"></Label>
+                <Label Text="{Binding CraftWorkerID}" Grid.Column="2"></Label>
+              </Grid>
+              <!--<StackLayout Orientation="Horizontal">
                 <Label Text="{Binding Status}"></Label>
                 <Label Text="{Binding CraftWorkerName}"></Label>
-              </StackLayout>
+              </StackLayout>-->
             </ViewCell.View>
           </ViewCell>
         </DataTemplate>
