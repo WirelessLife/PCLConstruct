@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Xamarin.Forms;
 using System.Net.Http.Headers;
+using PCLConstruct.Client.Helpers;
 
 namespace PCLConstruct.Client.Security
 {
     public class AzureADAuth
     {
-        public static string clientId = "f37dac5f-fe14-442f-99aa-18ee1fa0f46b"; //"2a2a6954-856e-4dea-ab07-3cefffdfc65c"; 
-        public static string authority = "https://login.windows.net/common";
-        public static string returnUri = "https://pcl-dev-pclconstruct-api.azurewebsites.net/.auth/login/done";
-        private const string graphResourceUri = "https://graph.windows.net";
+        private string clientId = SettingsHelper.GetConfig("ClientID");//"2a2a6954-856e-4dea-ab07-3cefffdfc65c"; 
+        private string authority = SettingsHelper.GetConfig("Authority");
+        private string returnUri = SettingsHelper.GetConfig("ReturnURI");
+        private string graphResourceUri = SettingsHelper.GetConfig("GraphURI");
         public AuthenticationResult authResult = null;
         
 
