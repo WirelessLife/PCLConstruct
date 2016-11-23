@@ -23,5 +23,6 @@ namespace PCLConstruct.Client.UWP
 
             LoadApplication(new PCLConstruct.Client.App());
         }
+
     }
 }

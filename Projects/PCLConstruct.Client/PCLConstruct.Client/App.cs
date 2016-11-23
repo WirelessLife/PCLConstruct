@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PCLConstruct.Client.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,12 +27,25 @@ namespace PCLConstruct.Client
                     }
                 }
             };
-
+            
             MainPage = new NavigationPage(content);
+            //AzureADAuth auth = new AzureADAuth();
+            //auth.AuthenticateUser(MainPage);
+            AzureADAuth auth = new AzureADAuth();
+            auth.ClearCache();
         }
 
         protected override void OnStart()
         {
+            AzureADAuth auth = new AzureADAuth();
+            var data = auth.AuthenticateUser();
+            if (string.IsNullOrEmpty(data.Result.AccessToken))
+            {
+                MainPage.DisplayAlert("Error", "Failed to get Token", "OK");
+            }
+
+            //AzureADAuth auth = new AzureADAuth();
+            //auth.ClearCache();
             // Handle when your app starts
         }
 
