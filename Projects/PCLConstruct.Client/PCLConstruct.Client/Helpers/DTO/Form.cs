@@ -23,7 +23,15 @@ namespace PCLConstruct.Client.Helpers.DTO
         public string id { get; set; }
         public string description { get; set; }
 
-        public List<Section> sections { get; set; }
+        List<Section> _sections;
+        public List<Section> sections
+        {
+            get { return _sections; }
+            set
+            {
+                _sections = value; OnPropertyChanged();
+            }
+        }
 
         private FormStatus _status;
         public FormStatus status
@@ -37,7 +45,6 @@ namespace PCLConstruct.Client.Helpers.DTO
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string name = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name)); 
-
 
     }
 }

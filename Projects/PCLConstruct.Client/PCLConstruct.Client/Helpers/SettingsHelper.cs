@@ -28,7 +28,7 @@ namespace PCLConstruct.Client.Helpers
 
             var settings = JsonConvert.DeserializeObject<dynamic>(jsonText);
 
-            return settings[settingName];
+            return (string)settings[settingName];
 
         }
     }

@@ -29,7 +29,7 @@
                   
                   <local:FormCompletionIndicator Status="{Binding status}"/>
                   
-                  <Label Grid.Column="1" Text="{Binding name}" />
+                  <Label Grid.Column="1" Text="{Binding name}" VerticalOptions="Center"/>
                 </Grid>
               
             </ViewCell>

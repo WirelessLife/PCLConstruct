@@ -63,14 +63,16 @@
         /// <remarks>
         /// TODO: This will need to load the form for this worker instead of displaying an alert.
         /// </remarks>
-        private void CraftWorkerList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void CraftWorkerList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
             {
                 return;
             }
 
-            this.DisplayAlert("Item Selected", ((CraftWorker)e.SelectedItem).CraftWorkerName, "Ok");
+            await Navigation.PushAsync(
+                    new FormSelectionPage((CraftWorker)e.SelectedItem)
+                );
         }
 
         /// <summary>
