@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<packages>
+  <package id="Microsoft.IdentityModel.Clients.ActiveDirectory" version="3.13.7" targetFramework="portable45-net45+win8+wp8+wpa81" />
+  <package id="Xamarin.Forms" version="2.2.0.45" targetFramework="portable45-net45+win8+wp8+wpa81" />
+</packages>

@@ -103,5 +103,16 @@ namespace PCLConstruct.Client.UWP
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            #if WINDOWS_PHONE_APP
+              if (args is IWebAuthenticationBrokerContinuationEventArgs)
+              {
+                WebAuthenticationBrokerContinuationHelper.SetWebAuthenticationBrokerContinuationEventArgs(args as IWebAuthenticationBrokerContinuationEventArgs);
+              }
+            #endif
+            base.OnActivated(args);
+        }
     }
 }
