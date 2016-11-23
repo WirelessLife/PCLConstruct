@@ -18,6 +18,9 @@ namespace PCLConstruct.Client.Security
         private const string graphResourceUri = "https://graph.windows.net";
         public AuthenticationResult authResult = null;
 
+        /// <summary>
+        /// This given and the family name for the authenticated user
+        /// </summary>
         public string UserName { get; set; }
 
         public async void AuthenticateUser()

@@ -11,7 +11,7 @@
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-      
+
     <StackLayout Grid.Column="0" BackgroundColor="#01016d" Grid.RowSpan="2">
       <Label x:Name="AdministratorNameLabel" Text="{Binding AdministratorName}" HorizontalTextAlignment="Start" FontSize="20" TextColor="#FFF" Margin="10, 10, 0, 0"/>
       <ListView x:Name="JobList" HasUnevenRows="True" RowHeight="10">
@@ -29,14 +29,14 @@
         </ListView.ItemTemplate>
       </ListView>
     </StackLayout>
-    
+
     <Label x:Name="WelcomeLabel"
            Grid.Column="1"
            Text="Select a project to view list of craftworkers arriving today"
            VerticalOptions="Center"
-           HorizontalOptions="Center" 
+           HorizontalOptions="Center"
             Grid.Row="1"/>
-    <Label x:Name="ListLable"
+    <Label x:Name="ListLabel"
            Grid.Column="1"
            Grid.Row="0"
            Text="Craftworkers Arriving Today"

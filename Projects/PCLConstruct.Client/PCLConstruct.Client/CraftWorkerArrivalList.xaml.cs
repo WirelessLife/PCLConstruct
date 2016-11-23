@@ -1,22 +1,25 @@
-﻿using PCLConstruct.Client.Security;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Xamarin.Forms;
-
-namespace PCLConstruct.Client
+﻿namespace PCLConstruct.Client
 {
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using Xamarin.Forms;
+
+    /// <summary>
+    /// The list of jobs and craft workers scheduled to arrive on site
+    /// </summary>
     public partial class CraftWorkerArrivalList : ContentPage, INotifyPropertyChanged
     {
-        public bool IsJobNotSelected {
-            get {
-                return JobList.SelectedItem == null;
-            }
-        }
-
+        /// <summary>
+        /// Initializes the Craft Worker Arrival page
+        /// </summary>
+        /// <param name="userName">the username of the authenticated user</param>
+        /// <remarks>
+        /// Need to hook up the job list to real data
+        /// </remarks>
         public CraftWorkerArrivalList(string userName)
         {
             InitializeComponent();
-            this.ListLable.IsVisible = false;
+            this.ListLabel.IsVisible = false;
 
             this.JobList.ItemsSource = new List<Job>
             {
@@ -47,11 +50,19 @@ namespace PCLConstruct.Client
 
             this.AdministratorNameLabel.Text = userName;
 
-            this.JobList.ItemSelected += JobList_ItemSelected;
+            this.JobList.ItemSelected += this.JobList_ItemSelected;
 
-            this.CraftWorkerList.ItemSelected += CraftWorkerList_ItemSelected;
+            this.CraftWorkerList.ItemSelected += this.CraftWorkerList_ItemSelected;
         }
 
+        /// <summary>
+        /// Handles when a craft worker item is selected
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event arguments of the event</param>
+        /// <remarks>
+        /// TODO: This will need to load the form for this worker instead of displaying an alert.
+        /// </remarks>
         private void CraftWorkerList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
@@ -59,19 +70,31 @@ namespace PCLConstruct.Client
                 return;
             }
 
-            DisplayAlert("Item Selected", ((CraftWorker)e.SelectedItem).CraftWorkerName, "Ok");
+            this.DisplayAlert("Item Selected", ((CraftWorker)e.SelectedItem).CraftWorkerName, "Ok");
         }
 
+        /// <summary>
+        /// Handles when a job item is selected. Loads the Craft Worker list.
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event arguments of the event</param>
+        /// <remarks>
+        /// TODO: Need to hook this up to real data
+        /// </remarks>
         private void JobList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
             {
+                // Shows the welcome label and hides the list label. The list won't have any items in it
                 this.WelcomeLabel.IsVisible = true;
-                this.ListLable.IsVisible = false;
+                this.ListLabel.IsVisible = false;
+                this.CraftWorkerList.ItemsSource = new List<CraftWorker>();
                 return;
             }
+
+            // Shows the list label and hides the welcome label
             this.WelcomeLabel.IsVisible = false;
-            this.ListLable.IsVisible = true;
+            this.ListLabel.IsVisible = true;
 
             this.CraftWorkerList.ItemsSource = new List<CraftWorker>
             {
@@ -115,12 +138,29 @@ namespace PCLConstruct.Client
         }
     }
 
+    /// <summary>
+    /// A POCO for the jobs
+    /// </summary>
     public class Job
     {
+        /// <summary>
+        /// Gets or sets the project number of the job
+        /// </summary>
         public string ProjectNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets the project location of the job
+        /// </summary>
         public string ProjectLocation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the project name of the job
+        /// </summary>
         public string ProjectName { get; set; }
 
+        /// <summary>
+        /// Gets the concatenated project display name. Formatted as ProjectNumber - ProjectName
+        /// </summary>
         public string ProjectDisplayValue
         {
             get
@@ -130,14 +170,39 @@ namespace PCLConstruct.Client
         }
     }
 
+    /// <summary>
+    /// A POCO for the craft workers
+    /// </summary>
     public class CraftWorker
     {
+        /// <summary>
+        /// Gets or sets the firstname of the craft worker
+        /// </summary>
         public string FirstName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the lastname of the craft worker
+        /// </summary>
         public string LastName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status of the form
+        /// </summary>
         public string Status { get; set; }
+
+        /// <summary>
+        /// Gets or sets the id type for this worker to identify who he is
+        /// </summary>
         public string IDType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the value for the id type provided
+        /// </summary>
         public string IDValue { get; set; }
+
+        /// <summary>
+        /// Gets the concated craft worker name. Formatted Lastname, Firstname
+        /// </summary>
         public string CraftWorkerName
         {
             get
@@ -145,6 +210,10 @@ namespace PCLConstruct.Client
                 return this.LastName + ", " + this.FirstName;
             }
         }
+
+        /// <summary>
+        /// Gets the concatenated unique identifier provided for this worker
+        /// </summary>
         public string CraftWorkerID
         {
             get
@@ -153,6 +222,9 @@ namespace PCLConstruct.Client
             }
         }
 
+        /// <summary>
+        /// Gets the image to use as the source for completed status of the form
+        /// </summary>
         public string ImageName
         {
             get
