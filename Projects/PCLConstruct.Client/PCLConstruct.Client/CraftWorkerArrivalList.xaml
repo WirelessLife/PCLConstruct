@@ -4,15 +4,15 @@
              x:Class="PCLConstruct.Client.CraftWorkerArrivalList">
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="25*" />
-      <ColumnDefinition Width="75*" />
+      <ColumnDefinition Width="25*" x:Name="MasterColumn"/>
+      <ColumnDefinition Width="75*" x:Name="DetailColumn"/>
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
-    <StackLayout Grid.Column="0" BackgroundColor="#54534A" Grid.RowSpan="2">
+    <StackLayout x:Name="JobListStackLayout" Grid.Column="0" BackgroundColor="#54534A" Grid.RowSpan="2">
       <Label x:Name="AdministratorNameLabel" Text="{Binding AdministratorName}" HorizontalTextAlignment="Start" FontSize="20" TextColor="#FFF" Margin="10, 10, 0, 0"/>
       <ListView x:Name="JobList" HasUnevenRows="True">
         <ListView.ItemTemplate>
@@ -54,9 +54,12 @@
               <Grid>
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition  Width="Auto" ></ColumnDefinition>
-                  <ColumnDefinition  Width="60*" ></ColumnDefinition>
-                  <ColumnDefinition  Width="40*" ></ColumnDefinition>
+                  <ColumnDefinition  Width="50*" ></ColumnDefinition>
+                  <ColumnDefinition  Width="50*" ></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
                 <!--<Label Text="{Binding Status}" Grid.Column="0"></Label>-->
                 <Image Source="{Binding ImageName}" Grid.Column="0" WidthRequest="32" HeightRequest="32" VerticalOptions="Center" />
                 <Label Text="{Binding CraftWorkerName}" Grid.Column="1" VerticalOptions="Center"></Label>

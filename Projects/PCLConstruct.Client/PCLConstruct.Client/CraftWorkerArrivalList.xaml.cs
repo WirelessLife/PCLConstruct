@@ -136,6 +136,23 @@
                 }
             };
         }
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height); //must be called
+
+            if (height > width)
+            {
+                this.JobListStackLayout.IsVisible = false;
+                this.DetailColumn.Width = GridLength.Star;
+                this.MasterColumn.Width = GridLength.Auto;
+            }
+            else {
+                this.JobListStackLayout.IsVisible = true;
+                this.DetailColumn.Width = new GridLength(75.0, GridUnitType.Star);
+                this.MasterColumn.Width = new GridLength(25.0, GridUnitType.Star);
+            }
+        }
+
     }
 
     /// <summary>
@@ -242,6 +259,8 @@
                 return "NotStarted.png";
             }
         }
+
+
 
     }
 }
