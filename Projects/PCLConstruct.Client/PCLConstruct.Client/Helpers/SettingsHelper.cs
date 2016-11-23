@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 using System.Xml;
 using Newtonsoft.Json;
 using Xamarin.Forms;
+using PCLConstruct.Client.Security;
 
 namespace PCLConstruct.Client.Helpers
 {
     public static class SettingsHelper
     {
-        public static string GetConfig(string settingName)
+        public static AzureSettings GetConfig()
         {
             var assembly = typeof(SettingsHelper).GetTypeInfo().Assembly;
 
@@ -26,9 +27,9 @@ namespace PCLConstruct.Client.Helpers
                 jsonText = reader.ReadToEnd();
             }
 
-            var settings = JsonConvert.DeserializeObject<dynamic>(jsonText);
+            AzureSettings settings = JsonConvert.DeserializeObject<AzureSettings>(jsonText);
 
-            return settings[settingName];
+            return settings;
 
         }
     }

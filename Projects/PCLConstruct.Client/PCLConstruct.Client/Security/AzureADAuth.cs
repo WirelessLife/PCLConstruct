@@ -13,10 +13,7 @@ namespace PCLConstruct.Client.Security
 {
     public class AzureADAuth
     {
-        private string clientId = SettingsHelper.GetConfig("ClientID");//"2a2a6954-856e-4dea-ab07-3cefffdfc65c"; 
-        private string authority = SettingsHelper.GetConfig("Authority");
-        private string returnUri = SettingsHelper.GetConfig("ReturnURI");
-        private string graphResourceUri = SettingsHelper.GetConfig("GraphURI");
+        private AzureSettings settings = SettingsHelper.GetConfig();//"2a2a6954-856e-4dea-ab07-3cefffdfc65c"; 
         public AuthenticationResult authResult = null;
 
         /// <summary>
@@ -27,7 +24,7 @@ namespace PCLConstruct.Client.Security
         public async void AuthenticateUser()
         {
             var auth = DependencyService.Get<IAuthenticator>();
-            authResult = await auth.Authenticate(authority, graphResourceUri, clientId, returnUri);
+            authResult = await auth.Authenticate(settings.Authority, settings.GraphURI, settings.ClientID, settings.ReturnURI);
             this.UserName = authResult.UserInfo.GivenName + " " + authResult.UserInfo.FamilyName;
             OnAuthenticated(new EventArgs());
         }
@@ -35,7 +32,7 @@ namespace PCLConstruct.Client.Security
         public void ClearCache()
         {
             var auth = DependencyService.Get<IAuthenticator>();
-            auth.ClearCache(authority);
+            auth.ClearCache(settings.Authority);
         }
 
         public void BuildAuthHeader(ref HttpClient httpClient)
