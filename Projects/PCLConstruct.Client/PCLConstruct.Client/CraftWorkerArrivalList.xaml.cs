@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PCLConstruct.Client.Security;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
 
@@ -12,7 +13,7 @@ namespace PCLConstruct.Client
             }
         }
 
-        public CraftWorkerArrivalList()
+        public CraftWorkerArrivalList(string userName)
         {
             InitializeComponent();
             this.ListLable.IsVisible = false;
@@ -22,21 +23,29 @@ namespace PCLConstruct.Client
                 new Job
                 {
                     ProjectNumber = "150009",
-                    ProjectName = "Edmonton Arena"
+                    ProjectName = "Edmonton Arena",
+                    ProjectLocation = "Location not available"
                 },
                 new Job {
                     ProjectNumber = "156000",
-                    ProjectName = "EIA Upgrade"
+                    ProjectName = "EIA Upgrade",
+                    ProjectLocation = "Location not available"
                 },
                 new Job
                 {
                     ProjectNumber = "150008",
                     ProjectName = "Test Project C",
                     ProjectLocation = "Edmonton, Alberta"
+                },                
+                new Job
+                {
+                    ProjectNumber = "150008",
+                    ProjectName = "Test Project C this is a very long project name to test wrapping",
+                    ProjectLocation = "Edmonton, Alberta"
                 }
             };
 
-            this.AdministratorNameLabel.Text = "Anna Song";
+            this.AdministratorNameLabel.Text = userName;
 
             this.JobList.ItemSelected += JobList_ItemSelected;
 

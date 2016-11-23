@@ -17,14 +17,15 @@ namespace PCLConstruct.Client.Security
         public static string returnUri = "https://pcl-dev-pclconstruct-api.azurewebsites.net/.auth/login/done";
         private const string graphResourceUri = "https://graph.windows.net";
         public AuthenticationResult authResult = null;
-        
+
+        public string UserName { get; set; }
 
         public async void AuthenticateUser()
         {
             var auth = DependencyService.Get<IAuthenticator>();
             authResult = await auth.Authenticate(authority, graphResourceUri, clientId, returnUri);
-            var userName = authResult.UserInfo.GivenName + " " + authResult.UserInfo.FamilyName;
-            
+            this.UserName = authResult.UserInfo.GivenName + " " + authResult.UserInfo.FamilyName;
+            OnAuthenticated(new EventArgs());
         }
 
         public void ClearCache()
@@ -37,6 +38,17 @@ namespace PCLConstruct.Client.Security
         {
             httpClient.DefaultRequestHeaders.Add("Bearer", authResult.AccessToken);
         }
+
+        protected virtual void OnAuthenticated(EventArgs e)
+        {
+            EventHandler<EventArgs> handler = UserAuthenticated;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        public event EventHandler<EventArgs> UserAuthenticated;
     }
 
     public interface IAuthenticator
