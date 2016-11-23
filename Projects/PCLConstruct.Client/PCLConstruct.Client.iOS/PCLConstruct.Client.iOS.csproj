@@ -190,7 +190,9 @@
       <Name>PCLConstruct.Client</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\Hamburger.png" />
+  </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Completed.png" />
     <BundleResource Include="Resources\NotStarted.png" />

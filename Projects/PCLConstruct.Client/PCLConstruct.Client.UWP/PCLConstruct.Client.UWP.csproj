@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Completed.png" />
+    <Content Include="Hamburger.png" />
     <Content Include="Incompleted.png" />
     <Content Include="NotStarted.png" />
     <Content Include="Properties\Default.rd.xml" />
