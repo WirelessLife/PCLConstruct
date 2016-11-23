@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PCLConstruct.Api\PCLConstruct.Api.csproj">
-      <Project>{8A2A6205-7958-4335-B27C-DE22088149A5}</Project>
+      <Project>{a3dd1fb9-c0b8-45cd-8be1-5452342b5da4}</Project>
       <Name>PCLConstruct.Api</Name>
     </ProjectReference>
   </ItemGroup>
