@@ -11,5 +11,6 @@ namespace PCLConstruct.Api
         public static readonly string JobTableName = "jobTable";
         public static readonly string FormTableName = "formTable";
         public static readonly string CraftWorkerTableName = "craftWorkerTableName";
+        public static readonly string SqlConnectionString = "SQLConnectionString";
     }
 }
