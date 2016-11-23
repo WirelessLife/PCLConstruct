@@ -16,16 +16,15 @@ namespace PCLConstruct.Client.Security
         public static string authority = "https://login.windows.net/common";
         public static string returnUri = "https://pcl-dev-pclconstruct-api.azurewebsites.net/.auth/login/done";
         private const string graphResourceUri = "https://graph.windows.net";
-        private AuthenticationResult authResult = null;
+        public AuthenticationResult authResult = null;
+        
 
-        public async Task<AuthenticationResult> AuthenticateUser()
+        public async void AuthenticateUser()
         {
             var auth = DependencyService.Get<IAuthenticator>();
-            var data = await auth.Authenticate(authority, graphResourceUri, clientId, returnUri);
-            var userName = data.UserInfo.GivenName + " " + data.UserInfo.FamilyName;
-
-            return data;
-            //bool x = await page.DisplayAlert("Token", userName, "Ok", "Cancel");
+            authResult = await auth.Authenticate(authority, graphResourceUri, clientId, returnUri);
+            var userName = authResult.UserInfo.GivenName + " " + authResult.UserInfo.FamilyName;
+            
         }
 
         public void ClearCache()
@@ -36,9 +35,7 @@ namespace PCLConstruct.Client.Security
 
         public void BuildAuthHeader(ref HttpClient httpClient)
         {
-            var data = AuthenticateUser();
-            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth2", data.Result.AccessToken);
-            httpClient.DefaultRequestHeaders.Add("OAuth2", data.Result.CreateAuthorizationHeader());
+            httpClient.DefaultRequestHeaders.Add("Bearer", authResult.AccessToken);
         }
     }
 

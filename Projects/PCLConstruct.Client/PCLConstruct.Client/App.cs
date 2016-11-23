@@ -38,11 +38,13 @@ namespace PCLConstruct.Client
         protected override void OnStart()
         {
             AzureADAuth auth = new AzureADAuth();
-            var data = auth.AuthenticateUser();
-            if (string.IsNullOrEmpty(data.Result.AccessToken))
-            {
-                MainPage.DisplayAlert("Error", "Failed to get Token", "OK");
-            }
+            auth.AuthenticateUser();
+
+            
+            //if (string.IsNullOrEmpty(auth.authResult.AccessToken))
+            //{
+           //     MainPage.DisplayAlert("Error", "Failed to get Token", "OK");
+           // }
 
             //AzureADAuth auth = new AzureADAuth();
             //auth.ClearCache();
