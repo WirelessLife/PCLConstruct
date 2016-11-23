@@ -2,7 +2,9 @@
 using System;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace PCLConstruct.Client
 {
     public class App : Application
@@ -11,6 +13,7 @@ namespace PCLConstruct.Client
 
         public App()
         {
+
             auth.ClearCache();
 
             ContentPage content = new ContentPage
@@ -30,6 +33,7 @@ namespace PCLConstruct.Client
             };
 
             MainPage = new NavigationPage(content);
+
         }
 
         protected override void OnStart()
