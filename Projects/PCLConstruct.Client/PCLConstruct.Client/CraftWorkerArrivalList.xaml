@@ -12,7 +12,7 @@
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
-    <StackLayout Grid.Column="0" BackgroundColor="#01016d" Grid.RowSpan="2">
+    <StackLayout Grid.Column="0" BackgroundColor="#54534A" Grid.RowSpan="2">
       <Label x:Name="AdministratorNameLabel" Text="{Binding AdministratorName}" HorizontalTextAlignment="Start" FontSize="20" TextColor="#FFF" Margin="10, 10, 0, 0"/>
       <ListView x:Name="JobList" HasUnevenRows="True" RowHeight="10">
         <ListView.ItemTemplate>
