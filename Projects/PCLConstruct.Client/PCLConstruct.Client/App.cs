@@ -10,12 +10,17 @@ namespace PCLConstruct.Client
 {
     public class App : Application
     {
-        AzureADAuth auth = new AzureADAuth();
+        public AzureADAuth auth = new AzureADAuth();
 
         public App()
         {
 
-            //auth.ClearCache();
+            Init();
+        }
+
+        public void Init()
+        {
+            auth.ClearCache();
 
             ContentPage content = new ContentPage
             {
@@ -32,13 +37,12 @@ namespace PCLConstruct.Client
                     }
                 }
             };
-            MainPage = new NavigationPage(content);
+            MainPage = content;
         }
 
         protected override void OnStart()
         {
-            auth.UserAuthenticated += OnUserAuthenticated;
-            auth.AuthenticateUser();
+            StartAuth();
 
             //if (string.IsNullOrEmpty(auth.authResult.AccessToken))
             //{
@@ -48,6 +52,12 @@ namespace PCLConstruct.Client
             //AzureADAuth auth = new AzureADAuth();
             //auth.ClearCache();
             // Handle when your app starts
+        }
+
+        public void StartAuth()
+        {
+            auth.UserAuthenticated += OnUserAuthenticated;
+            auth.AuthenticateUser();
         }
 
         protected override void OnSleep()
@@ -64,7 +74,8 @@ namespace PCLConstruct.Client
 
         public void OnUserAuthenticated(object sender, EventArgs e)
         {
-            MainPage.Navigation.PushAsync(new CraftWorkerArrivalList(auth.UserName));
+            MainPage = new NavigationPage(new CraftWorkerArrivalList(auth.UserName));
+            //MainPage = new NavigationPage(new PinAuthView(auth));
         }
     }
 }

@@ -39,6 +39,7 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
+      <Button x:Name ="LogoutButton" Text="Sign Out"></Button>
     </StackLayout>
 
     <Grid x:Name="CraftWorkersStackLayout" Grid.Column="1">

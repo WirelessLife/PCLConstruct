@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PCLConstruct.Client.Security;
+using PCLConstruct.Client.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,13 +15,11 @@ namespace PCLConstruct.Client.ViewModels
     public class PinAuthViewModel : INotifyPropertyChanged
     {
         private string _mainText;
-
         private string _pinNumber;
-
 
         public PinAuthViewModel()
         {
-            MainText = "PIN Number required from Administrator.";
+            MainText = "Please pass this moblie device back to the administrator.";
         }
 
         ICommand authenticatePin;
@@ -62,13 +62,33 @@ namespace PCLConstruct.Client.ViewModels
 
         private async Task ExecutePinCheck()
         {
-            if (PinNumber != "123456")
+
+            Login();
+            
+        }
+
+        public async void Login()
+        {
+            MultiFactorAuth mfauth = new MultiFactorAuth();
+            var currentApp = Application.Current as App;
+            if (mfauth.MfAuthenticateUser(currentApp.auth))
             {
-                MainText = "Incorrect Pin Number";
+                //jump to next page here
+                currentApp.MainPage = new CraftWorkerArrivalList(currentApp.auth.UserName);
             }
             else
             {
-                MainText = "Pin Number Authenticated.";
+                var answer = await currentApp.MainPage.DisplayAlert("Error", "Phone authentication failed, do you want to try again?", "Yes", "Login using password");
+                // auth failed
+                if (answer == true)
+                {
+                    Login();
+                }
+                else
+                {
+                    currentApp.Init();
+                    currentApp.StartAuth();
+                }
             }
         }
     }

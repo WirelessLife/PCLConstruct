@@ -6,15 +6,15 @@
   <StackLayout>
     <Label Text="{Binding MainText}" HorizontalOptions="Center" />
     
-    <Entry
+    <!--<Entry
       HorizontalOptions="Center"
       Keyboard="Numeric"
       Placeholder="PIN Number"
-      Text="{Binding PinNumber}" />
+      Text="{Binding PinNumber}" />-->
 
     <Button 
       HorizontalOptions="Center"
-      Text="Submit"
+      Text="Call Verification"
       Command="{Binding AuthenticatePinCommand}"
     />  
   </StackLayout>

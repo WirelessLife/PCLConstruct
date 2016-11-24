@@ -1,4 +1,5 @@
-﻿using PCLConstruct.Client.ViewModels;
+﻿using PCLConstruct.Client.Security;
+using PCLConstruct.Client.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
