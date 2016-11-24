@@ -6,7 +6,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.OData;
 using Microsoft.Azure.Mobile.Server;
 using PCLConstruct.Api.DataObjects;
-
+using PCLConstruct.Api.Models;
 
 namespace PCLConstruct.Api.Controllers
 {
@@ -18,9 +18,7 @@ namespace PCLConstruct.Api.Controllers
         {
             base.Initialize(controllerContext);
             
-
-
-            DomainManager = new StorageDomainManager<Form>(Constants.TableStorageConnectionString, Constants.FormTableName , Request);
+            DomainManager = new EntityDomainManager<Form>(new ApiContext(), Request);
         }
 
         // GET tables/Form

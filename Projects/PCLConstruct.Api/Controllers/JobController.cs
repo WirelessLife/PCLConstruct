@@ -5,7 +5,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.OData;
 using Microsoft.Azure.Mobile.Server;
 using PCLConstruct.Api.DataObjects;
-
+using PCLConstruct.Api.Models;
 
 namespace PCLConstruct.Api.Controllers
 {
@@ -14,8 +14,8 @@ namespace PCLConstruct.Api.Controllers
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
-            
-            DomainManager = new StorageDomainManager<Job>(Constants.TableStorageConnectionString, Constants.JobTableName,Request);
+                        
+            DomainManager = new EntityDomainManager<Job>(new ApiContext(), Request);
         }
 
         // GET tables/Job

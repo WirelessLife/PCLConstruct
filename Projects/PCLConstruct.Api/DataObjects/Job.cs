@@ -4,7 +4,7 @@ using Microsoft.WindowsAzure.Storage.Table;
 
 namespace PCLConstruct.Api.DataObjects
 {
-    public class Job : StorageData
+    public class Job : EntityData
     {
         public Guid Id { get; set; }
         public String ProjectNumber { get; set; }

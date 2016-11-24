@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{9F9B16
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "PCLConstruct.Api.Deploy", "..\..\Projects\PCLConstruct.Api.Deploy\PCLConstruct.Api.Deploy.deployproj", "{B712FB5B-2067-4D61-A90D-B7FBBE5823FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCLConstruct.Api.Test.App", "..\..\Projects\PCLConstruct.Api.Test.App\PCLConstruct.Api.Test.App.csproj", "{140EAE94-4B70-4B54-8AA9-FF36FD4C3732}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B712FB5B-2067-4D61-A90D-B7FBBE5823FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B712FB5B-2067-4D61-A90D-B7FBBE5823FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B712FB5B-2067-4D61-A90D-B7FBBE5823FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{140EAE94-4B70-4B54-8AA9-FF36FD4C3732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{140EAE94-4B70-4B54-8AA9-FF36FD4C3732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{140EAE94-4B70-4B54-8AA9-FF36FD4C3732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{140EAE94-4B70-4B54-8AA9-FF36FD4C3732}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,5 +47,6 @@ Global
 		{E03E615F-4F35-47AF-8CB8-50482AFDAF2D} = {1D7DB1E3-4008-49EA-8D91-98F6597177EB}
 		{A3DD1FB9-C0B8-45CD-8BE1-5452342B5DA4} = {72161BE0-197E-443A-A6FA-192CEF7FFC6C}
 		{B712FB5B-2067-4D61-A90D-B7FBBE5823FA} = {9F9B16B6-DBD5-43E0-B07E-4B7EA34C6708}
+		{140EAE94-4B70-4B54-8AA9-FF36FD4C3732} = {1D7DB1E3-4008-49EA-8D91-98F6597177EB}
 	EndGlobalSection
 EndGlobal

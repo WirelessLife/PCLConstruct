@@ -4,7 +4,7 @@ using Microsoft.WindowsAzure.Storage.Table;
 
 namespace PCLConstruct.Api.DataObjects
 {
-    public class CraftWorker : StorageData
+    public class CraftWorker : EntityData
     {
         
         public Guid Id { get; set; }
