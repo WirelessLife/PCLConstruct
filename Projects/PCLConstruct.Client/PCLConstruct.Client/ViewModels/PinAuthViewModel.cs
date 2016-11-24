@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PCLConstruct.Client.Security;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,10 +17,12 @@ namespace PCLConstruct.Client.ViewModels
 
         private string _pinNumber;
 
+        public AzureADAuth auth;
 
-        public PinAuthViewModel()
+        public PinAuthViewModel(AzureADAuth azureauth)
         {
-            MainText = "PIN Number required from Administrator.";
+            MainText = "Please pass this moblie device back to the administrator.";
+            auth = azureauth;
         }
 
         ICommand authenticatePin;
@@ -62,14 +65,17 @@ namespace PCLConstruct.Client.ViewModels
 
         private async Task ExecutePinCheck()
         {
-            if (PinNumber != "123456")
-            {
-                MainText = "Incorrect Pin Number";
-            }
-            else
-            {
-                MainText = "Pin Number Authenticated.";
-            }
+            //if (PinNumber != "123456")
+            //{
+            //    MainText = "Incorrect Pin Number";
+            //}
+            //else
+            //{
+            //    MainText = "Pin Number Authenticated.";
+            //}
+
+            MultiFactorAuth mfauth = new MultiFactorAuth();
+            mfauth.MfAuthenticateUser(auth);
         }
     }
 }

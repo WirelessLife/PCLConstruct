@@ -41,6 +41,7 @@
     </Compile>
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Security\AzureSettings.cs" />
+    <Compile Include="Security\MultiFactorAuth.cs" />
     <Compile Include="ViewModels\PinAuthViewModel.cs" />
     <Compile Include="Controls\FormCompletionIndicator.cs" />
     <Compile Include="Controls\FormLabel.cs" />
