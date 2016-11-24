@@ -14,12 +14,8 @@ namespace PCLConstruct.Client
 
         public App()
         {
-<<<<<<< HEAD
-            auth.ClearCache();
-=======
 
             //auth.ClearCache();
->>>>>>> Forms
 
             ContentPage content = new ContentPage
             {
