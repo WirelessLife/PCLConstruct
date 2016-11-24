@@ -16,7 +16,7 @@
     </Grid.RowDefinitions>
 
     <ScrollView Grid.Row="0">
-      <ListView x:Name="lstForms">
+      <ListView x:Name="lstForms" HasUnevenRows="True">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>

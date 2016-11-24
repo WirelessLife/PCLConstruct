@@ -124,9 +124,6 @@ namespace PCLConstruct.Client
                     DisplayAlert("Form Invalid", "This form could not be marked as complete because there was invalid data entered", "Ok");
                 }
                 
-                // if all fields are complete, set to complete status
-                this.form.status = FormStatus.Complete;
-                Navigation.PopAsync();
 
             };
         }

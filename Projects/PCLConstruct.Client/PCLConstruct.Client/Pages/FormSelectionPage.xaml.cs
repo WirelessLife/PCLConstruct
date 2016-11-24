@@ -32,20 +32,15 @@ namespace PCLConstruct.Client
             lstForms.ItemTapped += (sender, args) => { onFormSelected((Form)args.Item); };
 
             // Bind the submit button
-            btnSubmit.Clicked += (sender, args) => {
-                bool allFormsComplete = true;
-
-                foreach (Form form in forms) {
-                    if (form.status != Controls.FormStatus.Complete) {
-                        allFormsComplete = false;
-                        break;
-                    }
-                }
+            btnSubmit.Clicked += async(sender, args) => {
+                
 
                 if (AllFormsComplete())
                 {
                     string jsonToSave = JsonConvert.SerializeObject(forms);
                     //submit here
+                    await DisplayAlert("Submission Complete", "Thank you!  Please return this device to the admin", "Ok (admin only)");
+                    Navigation.PopAsync(true);
                 }
                 else {
                     DisplayAlert("Forms Incomplete","One or more of your forms are incomplete.","Ok");
