@@ -21,11 +21,14 @@ namespace PCLConstruct.Client.Security
         /// </summary>
         public string UserName { get; set; }
 
-        public async void AuthenticateUser()
+        public async Task AuthenticateUser()
         {
             var auth = DependencyService.Get<IAuthenticator>();
             authResult = await auth.Authenticate(settings.Authority, settings.GraphURI, settings.ClientID, settings.ReturnURI);
-            this.UserName = authResult.UserInfo.GivenName + " " + authResult.UserInfo.FamilyName;
+            if (string.IsNullOrEmpty(authResult.AccessToken) == false)
+            {
+                this.UserName = authResult.UserInfo.GivenName + " " + authResult.UserInfo.FamilyName;
+            }
             OnAuthenticated(new EventArgs());
         }
 
@@ -37,7 +40,9 @@ namespace PCLConstruct.Client.Security
 
         public void BuildAuthHeader(ref HttpClient httpClient)
         {
-            httpClient.DefaultRequestHeaders.Add("Bearer", authResult.AccessToken);
+            var auth = DependencyService.Get<IAuthenticator>();
+            AuthenticateUser();
+            httpClient.DefaultRequestHeaders.Add("Authorization", authResult.CreateAuthorizationHeader());
         }
 
         protected virtual void OnAuthenticated(EventArgs e)
