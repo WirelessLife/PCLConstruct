@@ -63,7 +63,7 @@ namespace PCLConstruct.Client
 
         public void OnUserAuthenticated(object sender, EventArgs e)
         {
-            MainPage = new CraftWorkerArrivalList(auth.UserName);
+            MainPage = new NavigationPage(new CraftWorkerArrivalList(auth.UserName));
         }
     }
 }
