@@ -18,7 +18,7 @@ namespace PCLConstruct.Api.Controllers.Tests
             AuthenticationContext context = new AuthenticationContext("https://login.windows.net/common");            
 
             AuthKeyController sut = new AuthKeyController();
-            var result = sut.Post();
+            //var result = sut.Post();
         }
     }
 }
