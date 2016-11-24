@@ -10,6 +10,10 @@ namespace PCLConstruct.Api.DataObjects
     {
         
         public Guid Id { get; set; }
+
+        public Job Job { get; set; }
+        public Guid JobId { get; set; }
+
         public String FirstName { get; set; }
         public String LastName { get; set; }
         public String IdentifierType { get; set; }

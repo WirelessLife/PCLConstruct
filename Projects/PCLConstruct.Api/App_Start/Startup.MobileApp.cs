@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.ActiveDirectory;
 using Owin;
 using System.IdentityModel.Tokens;
+using PCLConstruct.Api.Models;
 
 namespace PCLConstruct.Api
 {
@@ -26,6 +27,8 @@ namespace PCLConstruct.Api
             
 
             MobileAppSettingsDictionary settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
+
+            //Database.SetInitializer(new MobileServiceInitializer());
 
             if (string.IsNullOrEmpty(settings.HostName))
             {
@@ -51,6 +54,25 @@ namespace PCLConstruct.Api
             //  });
 
             app.UseWebApi(config);
+        }
+
+        public class MobileServiceInitializer : CreateDatabaseIfNotExists<ApiContext>
+        {
+            protected override void Seed(ApiContext context)
+            {
+                List<Form> forms = new List<Form>
+            {
+                new Form { Id = Guid.NewGuid(), Name = "a form"},
+                new Form { Id = Guid.NewGuid(), Name= "a second form"},
+            };
+
+                foreach (Form todoItem in forms)
+                {
+                    context.Set<Form>().Add(todoItem);
+                }
+
+                base.Seed(context);
+            }
         }
     }
 

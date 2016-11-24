@@ -221,6 +221,7 @@
     <Compile Include="DataObjects\Job.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\pf_auth.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApiContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -241,7 +242,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppSettingsDev.config" />
     <None Include="Helpers\cert_key.p12" />
     <None Include="Properties\PublishProfiles\PCL-Dev-PCLConstruct-Api - Web Deploy.pubxml" />
     <Content Include="Service References\AzureAD\ConnectedService.json" />

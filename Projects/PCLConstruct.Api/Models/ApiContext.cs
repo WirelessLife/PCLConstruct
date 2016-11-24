@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity;
-using System.Diagnostics.Contracts;
+﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
-using System.Web;
+using Microsoft.Azure.Mobile.Server;
+using Microsoft.Azure.Mobile.Server.Tables;
+
 using PCLConstruct.Api.DataObjects;
 
 namespace PCLConstruct.Api.Models
@@ -19,7 +18,12 @@ namespace PCLConstruct.Api.Models
         public DbSet<Form> Forms { get; set; }
         public DbSet<Job> Jobs { get; set; }
 
-
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Add(
+                new AttributeToColumnAnnotationConvention<TableColumnAttribute, string>(
+                    "ServiceTableColumn", (property, attributes) => attributes.Single().ColumnType.ToString()));
+        }
 
     }
 }

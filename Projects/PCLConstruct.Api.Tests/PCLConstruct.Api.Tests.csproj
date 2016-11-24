@@ -69,10 +69,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\PCLConstruct.Api\Helpers\cert_key.p12">
-      <Link>cert_key.p12</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
