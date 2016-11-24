@@ -7,34 +7,35 @@ using Xamarin.Forms;
 
 namespace PCLConstruct.Client.Controls
 {
-    public enum FormStatus {
-       Nothing,
-       Incomplete,
-       Complete,
-       InProgress
+    public enum FormStatus
+    {
+        NotStarted,
+        Complete,
+        InProgress
     }
     public class FormCompletionIndicator : ContentView
     {
-        private Label indicator;
+        private Image indicator;
 
 
         public static readonly BindableProperty StatusProperty = BindableProperty.Create(
-    propertyName: nameof(Status),
-    returnType: typeof(FormStatus),
-    declaringType: typeof(FormCompletionIndicator),
-    defaultValue: FormStatus.Nothing,
-    propertyChanged: (obj, oldValue, newValue)=>
-    {
-        var fci = obj as FormCompletionIndicator;
-        fci.refreshStatus();
-    });
+            propertyName: nameof(Status),
+            returnType: typeof(FormStatus),
+            declaringType: typeof(FormCompletionIndicator),
+            defaultValue: FormStatus.NotStarted,
+            propertyChanged: (obj, oldValue, newValue) =>
+            {
+                var fci = obj as FormCompletionIndicator;
+                fci.refreshStatus();
+            }
+        );
 
         public FormStatus Status
         {
             get
             {
                 var ret = GetValue(StatusProperty);
-                return ret == null ? FormStatus.Nothing : (FormStatus)ret;
+                return ret == null ? FormStatus.NotStarted : (FormStatus)ret;
             }
             set
             {
@@ -42,38 +43,33 @@ namespace PCLConstruct.Client.Controls
             }
         }
 
-        public FormCompletionIndicator() {
-            indicator = new Label();
+        public FormCompletionIndicator()
+        {
+            indicator = new Image() {
+                WidthRequest = 32,
+                HeightRequest = 32
+            };
             this.Content = indicator;
             refreshStatus();
         }
 
-        private void refreshStatus() {
+        private void refreshStatus()
+        {
             switch (Status)
             {
                 case FormStatus.Complete:
-                    // set image to green
-                    indicator.Text = "Complete";
+                    indicator.Source = "Completed.png";
                     break;
 
                 case FormStatus.InProgress:
-                    // set image to yellow
-                    indicator.Text = "In Progress";
+                    indicator.Source = "Incompleted.png";
                     break;
 
-                case FormStatus.Incomplete:
-                    // set image to red
-                    indicator.Text = "Incomplete";
-                    break;
-
-                case FormStatus.Nothing:
-                    // set image to red
-                    indicator.Text = "[nothing]";
+                case FormStatus.NotStarted:
+                    indicator.Source = "NotStarted.png";
                     break;
 
                 default:
-                    // set image to empty
-                    indicator.Text = "";
                     break;
             }
         }

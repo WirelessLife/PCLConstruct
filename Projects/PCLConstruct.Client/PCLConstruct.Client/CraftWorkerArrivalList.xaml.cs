@@ -1,14 +1,23 @@
 ﻿namespace PCLConstruct.Client
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using Xamarin.Forms;
+    using System.Linq;
+    using PCLConstruct.Client.Security;
 
     /// <summary>
     /// The list of jobs and craft workers scheduled to arrive on site
     /// </summary>
     public partial class CraftWorkerArrivalList : ContentPage, INotifyPropertyChanged
     {
+        /// <summary>
+        /// Determines if the tray is already opened
+        /// </summary>
+        private bool TrayOpened = true;
+        private string CurrentProjectNumber;
+
         /// <summary>
         /// Initializes the Craft Worker Arrival page
         /// </summary>
@@ -19,6 +28,11 @@
         public CraftWorkerArrivalList(string userName)
         {
             InitializeComponent();
+
+            this.ExpandTray.GestureRecognizers.Add(new TapGestureRecognizer(this.ExpandTrayOnTap));
+            //this.CollapseTray.Clicked += CollapseTray_Clicked;
+            this.CollapseTray.GestureRecognizers.Add(new TapGestureRecognizer(this.CollapseTrayOnTap));
+
             this.ListLabel.IsVisible = false;
 
             this.JobList.ItemsSource = new List<Job>
@@ -39,11 +53,17 @@
                     ProjectNumber = "150008",
                     ProjectName = "Test Project C",
                     ProjectLocation = "Edmonton, Alberta"
-                },                
+                },
                 new Job
                 {
-                    ProjectNumber = "150008",
+                    ProjectNumber = "150007",
                     ProjectName = "Test Project C this is a very long project name to test wrapping",
+                    ProjectLocation = "Edmonton, Alberta"
+                },
+                new Job
+                {
+                    ProjectNumber = "150000",
+                    ProjectName = "No worker Project",
                     ProjectLocation = "Edmonton, Alberta"
                 }
             };
@@ -52,7 +72,56 @@
 
             this.JobList.ItemSelected += this.JobList_ItemSelected;
 
-            this.CraftWorkerList.ItemSelected += this.CraftWorkerList_ItemSelected;
+            this.CraftWorkerList.ItemTapped += this.CraftWorkerList_ItemTapped;
+
+            this.LogoutButton.Clicked += LogoutButton_Clicked;
+        }
+
+        private void LogoutButton_Clicked(object sender, EventArgs e)
+        {
+            AzureADAuth auth = new AzureADAuth();
+            auth.ClearCache();
+            auth.AuthenticateUser();
+        }
+
+        private void CollapseTrayOnTap(View arg1, object arg2)
+        {
+            this.HideTray();
+        }
+
+        private void ExpandTrayOnTap(View arg1, object arg2)
+        {
+            this.ShowTray();
+        }
+
+        private void HideTray()
+        {
+            //Portrait
+            if (height > width)
+            {
+                this.TrayOpened = false;
+
+                this.JobListStackLayout.IsVisible = false;
+                this.CraftWorkersStackLayout.IsVisible = true;
+
+                this.MasterColumn.Width = GridLength.Auto;
+                this.DetailColumn.Width = GridLength.Star;
+
+            }
+        }
+
+        private void ShowTray()
+        {
+            if (height > width)
+            {
+                this.TrayOpened = true;
+
+                this.JobListStackLayout.IsVisible = true;
+                this.CraftWorkersStackLayout.IsVisible = false;
+
+                this.MasterColumn.Width = GridLength.Star;
+                this.DetailColumn.Width = GridLength.Auto;
+            }
         }
 
         /// <summary>
@@ -63,14 +132,16 @@
         /// <remarks>
         /// TODO: This will need to load the form for this worker instead of displaying an alert.
         /// </remarks>
-        private void CraftWorkerList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void CraftWorkerList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.SelectedItem == null)
+            if (e.Item == null)
             {
                 return;
             }
 
-            this.DisplayAlert("Item Selected", ((CraftWorker)e.SelectedItem).CraftWorkerName, "Ok");
+            await Navigation.PushAsync(
+                    new FormSelectionPage((CraftWorker)e.Item)
+                );
         }
 
         /// <summary>
@@ -85,7 +156,7 @@
         {
             if (e.SelectedItem == null)
             {
-                // Shows the welcome label and hides the list label. The list won't have any items in it
+                // Shows the welcome label and hides the list label. The list won"t have any items in it
                 this.WelcomeLabel.IsVisible = true;
                 this.ListLabel.IsVisible = false;
                 this.CraftWorkerList.ItemsSource = new List<CraftWorker>();
@@ -96,10 +167,81 @@
             this.WelcomeLabel.IsVisible = false;
             this.ListLabel.IsVisible = true;
 
-            this.CraftWorkerList.ItemsSource = new List<CraftWorker>
+            CurrentProjectNumber = ((Job)e.SelectedItem).ProjectNumber;
+
+            var newtempCraftWorkerList = tempCraftWorkerList.Where(x => x.ProjectNumber == CurrentProjectNumber);
+
+            if (newtempCraftWorkerList.Any())
+            {
+                this.CraftWorkerList.ItemsSource = tempCraftWorkerList.Where(x => x.ProjectNumber == CurrentProjectNumber);
+            }
+            else {
+                this.WelcomeLabel.IsVisible = true;
+                this.WelcomeLabel.Text = "No workers found for this project.";
+                this.CraftWorkerList.ItemsSource = new List<CraftWorker>();
+            }
+            
+
+            //If portrait, hide the master column and bring out the detial. 
+            this.HideTray();
+        }
+
+        private double width = 0;
+        private double height = 0;
+
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height); //must be called
+
+            if (this.width != width || this.height != height)
+            {
+                this.width = width;
+                this.height = height;
+            }
+            else
+            {
+                // If the width / height is the same, excape early.
+                return;
+            }
+
+            if (height > width)
+            {
+                // This is our portrait view
+                this.TrayOpened = true;
+
+                this.ExpandTray.IsVisible = true;
+                this.CollapseTray.IsVisible = true;
+
+                this.DetailColumn.Width = GridLength.Star;
+                this.MasterColumn.Width = GridLength.Auto;
+
+                this.JobListStackLayout.IsVisible = true;
+                this.CraftWorkersStackLayout.IsVisible = false;
+            }
+            else
+            {
+                // This is our landscape view
+                this.ExpandTray.IsVisible = false;
+                this.CollapseTray.IsVisible = false;
+
+                this.JobListStackLayout.IsVisible = true;
+                this.CraftWorkersStackLayout.IsVisible = true;
+                this.DetailColumn.Width = new GridLength(75.0, GridUnitType.Star);
+                this.MasterColumn.Width = new GridLength(25.0, GridUnitType.Star);
+            }
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            // If you want to stop the back button
+            return false;
+        }
+
+        List<CraftWorker> tempCraftWorkerList = new List<CraftWorker>
             {
                 new CraftWorker
                 {
+                    ProjectNumber = "150008",
                     FirstName = "Anna",
                     LastName = "Song",
                     Status = "Completed",
@@ -107,6 +249,7 @@
                     IDValue = "123456789"
                 },
                 new CraftWorker {
+                    ProjectNumber = "150009",
                     FirstName = "Kyle",
                     LastName = "Franklin",
                     Status = "Not Started",
@@ -114,6 +257,7 @@
                     IDValue ="789456123"
                 },
                 new CraftWorker {
+                    ProjectNumber = "156000",
                     FirstName = "Kennedy",
                     LastName = "Roulston",
                     Status = "Incomplete",
@@ -121,6 +265,7 @@
                     IDValue ="6743"
                 },
                 new CraftWorker {
+                    ProjectNumber = "156000",
                     FirstName = "Steven",
                     LastName = "Briggs",
                     Status = "Not Started",
@@ -128,6 +273,7 @@
                     IDValue ="54546-654654"
                 },
                 new CraftWorker {
+                    ProjectNumber = "150007",
                     FirstName = "Kevin",
                     LastName = "Chew",
                     Status = "Completed",
@@ -135,7 +281,6 @@
                     IDValue ="45435-654778"
                 }
             };
-        }
     }
 
     /// <summary>
@@ -175,6 +320,9 @@
     /// </summary>
     public class CraftWorker
     {
+
+        public string ProjectNumber { get; set; }
+
         /// <summary>
         /// Gets or sets the firstname of the craft worker
         /// </summary>
@@ -222,6 +370,8 @@
             }
         }
 
+
+
         /// <summary>
         /// Gets the image to use as the source for completed status of the form
         /// </summary>
@@ -229,7 +379,7 @@
         {
             get
             {
-                switch(this.Status)
+                switch (this.Status)
                 {
                     case "Not Started":
                         return "NotStarted.png";
@@ -242,6 +392,8 @@
                 return "NotStarted.png";
             }
         }
+
+
 
     }
 }
