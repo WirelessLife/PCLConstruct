@@ -28,7 +28,7 @@ namespace PCLConstruct.Client
             
             lstForms.ItemsSource = this.forms;
             lstForms.BindingContext = this;
-
+            NavigationPage.SetHasBackButton(this, false);
             // Bind item taps to forward to the form rendering page
             lstForms.ItemTapped += (sender, args) => { onFormSelected((Form)args.Item); };
 
@@ -38,17 +38,32 @@ namespace PCLConstruct.Client
 
                 // submit/save/whatever
                 string foo = "bar";
-
-                //if save success, jump to the pin auth page.
-
-                Navigation.PushAsync(
-                   new PinAuthView()
-               );
+            };
+            btnExit.Clicked += (sender, args) =>
+            {
+                Backbutton();
             };
         }
 
+
+        public void Backbutton()
+        {
+            OnBackButtonPressed();
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            //if save success, jump to the pin auth page.
+
+            Navigation.PushAsync(
+               new PinAuthView()
+           );
+            return true;
+        }
+
+
         protected override void OnAppearing()
         {
+            
             base.OnAppearing();
         }
 

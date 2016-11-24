@@ -6,7 +6,7 @@
     using Xamarin.Forms;
     using System.Linq;
     using PCLConstruct.Client.Security;
-
+    using Views;
     /// <summary>
     /// The list of jobs and craft workers scheduled to arrive on site
     /// </summary>
@@ -139,11 +139,16 @@
                 return;
             }
 
-            await Navigation.PushAsync(
-                    new FormSelectionPage((CraftWorker)e.Item)
-                );
-        }
+     
+           var Selectionpage = new FormSelectionPage((CraftWorker)e.Item);
 
+            await Navigation.PushAsync(
+                    Selectionpage
+                );
+            
+
+        }
+       
         /// <summary>
         /// Handles when a job item is selected. Loads the Craft Worker list.
         /// </summary>

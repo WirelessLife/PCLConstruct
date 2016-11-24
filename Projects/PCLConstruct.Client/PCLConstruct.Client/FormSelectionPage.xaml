@@ -2,20 +2,24 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PCLConstruct.Client.FormSelectionPage"
-             xmlns:local="clr-namespace:PCLConstruct.Client.Controls">
+             xmlns:local="clr-namespace:PCLConstruct.Client.Controls" >
 
   <Grid>
 
     <Grid.Padding>
       <OnPlatform x:TypeArguments="Thickness" iOS="0,20,0,0"/>
     </Grid.Padding>
-
+    
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
       <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition></ColumnDefinition>
+      <ColumnDefinition></ColumnDefinition>
+    </Grid.ColumnDefinitions>
 
-    <ScrollView Grid.Row="0">
+    <ScrollView Grid.Row="0" Grid.ColumnSpan="2">
       <ListView x:Name="lstForms">
         <ListView.ItemTemplate>
           <DataTemplate>
@@ -39,8 +43,15 @@
     </ScrollView>
 
     <Button
+         x:Name="btnExit"
+         Grid.Row="1" Grid.Column="0"
+         Text="Exit"
+         HorizontalOptions="Center"
+         VerticalOptions="Center" />
+
+    <Button
          x:Name="btnSubmit"
-         Grid.Row="1"
+         Grid.Row="1" Grid.Column="1"
          Text="Submit"
          HorizontalOptions="Center"
          VerticalOptions="Center" />
