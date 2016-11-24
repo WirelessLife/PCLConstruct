@@ -25,12 +25,12 @@
         <Image x:Name="CollapseTray" Source="Hamburger.png" Grid.Column="2" WidthRequest="32" HeightRequest="32" Margin="0,0,10,0" />
       </Grid>
 
-      <ListView x:Name="JobList" HasUnevenRows="True">
+      <ListView x:Name="JobList" HasUnevenRows="True" BackgroundColor="#54534A">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
               <ViewCell.View>
-                <StackLayout Orientation="Vertical" Padding="10, 5, 10, 5">
+                <StackLayout Orientation="Vertical" BackgroundColor="#54534A" Padding="10, 5, 10, 5">
                   <Label Text="{Binding ProjectDisplayValue}" TextColor="#FFF" Margin="0,0,0,-8"></Label>
                   <Label Text="{Binding ProjectLocation}" TextColor="#DDD"></Label>
                 </StackLayout>
@@ -39,7 +39,11 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-      <Button x:Name ="LogoutButton" Text="Sign Out"></Button>
+      <Button x:Name ="LogoutButton" Text="Sign Out">
+        <Button.TextColor>
+          <OnPlatform x:TypeArguments="Color" iOS="White"></OnPlatform>
+        </Button.TextColor>
+      </Button>
     </StackLayout>
 
     <Grid x:Name="CraftWorkersStackLayout" Grid.Column="1">

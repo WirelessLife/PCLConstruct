@@ -35,6 +35,8 @@
 
             this.ListLabel.IsVisible = false;
 
+            this.CraftWorkerList.IsVisible = false;
+
             this.JobList.ItemsSource = new List<Job>
             {
                 new Job
@@ -158,6 +160,7 @@
             {
                 // Shows the welcome label and hides the list label. The list won"t have any items in it
                 this.WelcomeLabel.IsVisible = true;
+                this.CraftWorkerList.IsVisible = false;
                 this.ListLabel.IsVisible = false;
                 this.CraftWorkerList.ItemsSource = new List<CraftWorker>();
                 return;
@@ -165,6 +168,7 @@
 
             // Shows the list label and hides the welcome label
             this.WelcomeLabel.IsVisible = false;
+            this.CraftWorkerList.IsVisible = true;
             this.ListLabel.IsVisible = true;
 
             CurrentProjectNumber = ((Job)e.SelectedItem).ProjectNumber;
@@ -177,6 +181,7 @@
             }
             else {
                 this.WelcomeLabel.IsVisible = true;
+                this.CraftWorkerList.IsVisible = false;
                 this.WelcomeLabel.Text = "No workers found for this project.";
                 this.CraftWorkerList.ItemsSource = new List<CraftWorker>();
             }
