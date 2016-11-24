@@ -29,11 +29,8 @@ namespace PCLConstruct.Client.Helpers
 
             AzureSettings settings = JsonConvert.DeserializeObject<AzureSettings>(jsonText);
 
-<<<<<<< HEAD
             return settings;
-=======
-            return (string)settings[settingName];
->>>>>>> Forms
+            //return (string)settings[settingName];
 
         }
     }
