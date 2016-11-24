@@ -236,6 +236,11 @@
             }
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            // If you want to stop the back button
+            return false;
+        }
     }
 
     /// <summary>

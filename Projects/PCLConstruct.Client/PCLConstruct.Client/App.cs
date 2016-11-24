@@ -14,7 +14,7 @@ namespace PCLConstruct.Client
 
         public App()
         {
-            auth.ClearCache();
+            //auth.ClearCache();
 
             ContentPage content = new ContentPage
             {
@@ -31,7 +31,7 @@ namespace PCLConstruct.Client
                     }
                 }
             };
-            MainPage = new NavigationPage(content);
+            MainPage = content;
         }
 
         protected override void OnStart()
@@ -63,7 +63,7 @@ namespace PCLConstruct.Client
 
         public void OnUserAuthenticated(object sender, EventArgs e)
         {
-            MainPage.Navigation.PushAsync(new CraftWorkerArrivalList(auth.UserName));
+            MainPage = new CraftWorkerArrivalList(auth.UserName);
         }
     }
 }
