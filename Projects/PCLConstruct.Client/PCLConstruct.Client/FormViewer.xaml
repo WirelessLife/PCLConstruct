@@ -13,15 +13,21 @@
       <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
 
-    <ScrollView Grid.Row="0">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <ScrollView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
       <ContentView x:Name="FormContent">
         <ContentView.Padding>
-          <OnPlatform x:TypeArguments="Thickness" iOS="25,25,25,25"/>
+          <OnPlatform x:TypeArguments="Thickness" iOS="25,25,25,25" Android="25,25,25,25"/>
         </ContentView.Padding>
       </ContentView>
     </ScrollView>
     
-    <Button Text="Help" Grid.Row="1" />
+    <Button x:Name="btnHelp" Text="Help" Grid.Row="1" Grid.Column="0"/>
+    <Button x:Name="btnComplete" Text="Complete" Grid.Row="1" Grid.Column="1"/>
     
   </Grid>
   

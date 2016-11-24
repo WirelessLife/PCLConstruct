@@ -1,4 +1,5 @@
 ﻿using PCLConstruct.Client.Security;
+using PCLConstruct.Client.Views;
 using System;
 
 using Xamarin.Forms;
@@ -13,8 +14,12 @@ namespace PCLConstruct.Client
 
         public App()
         {
-
+<<<<<<< HEAD
             auth.ClearCache();
+=======
+
+            //auth.ClearCache();
+>>>>>>> Forms
 
             ContentPage content = new ContentPage
             {
@@ -31,9 +36,7 @@ namespace PCLConstruct.Client
                     }
                 }
             };
-
             MainPage = new NavigationPage(content);
-
         }
 
         protected override void OnStart()
