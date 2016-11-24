@@ -15,6 +15,7 @@ using Microsoft.Azure.Mobile.Server.Config;
 namespace PCLConstruct.Api.Controllers
 {
     [MobileAppController]
+    [Authorize]
 
     public class AuthKeyController : ApiController
     {
