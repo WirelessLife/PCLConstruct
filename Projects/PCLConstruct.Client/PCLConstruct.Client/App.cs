@@ -14,6 +14,7 @@ namespace PCLConstruct.Client
 
         public App()
         {
+
             Init();
         }
 

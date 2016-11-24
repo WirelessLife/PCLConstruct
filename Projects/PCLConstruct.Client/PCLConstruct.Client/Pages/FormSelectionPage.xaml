@@ -20,7 +20,7 @@
     </Grid.ColumnDefinitions>
 
     <ScrollView Grid.Row="0" Grid.ColumnSpan="2">
-      <ListView x:Name="lstForms">
+      <ListView x:Name="lstForms" HasUnevenRows="True">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
@@ -42,6 +42,7 @@
       </ListView>
     </ScrollView>
 
+
     <Button
          x:Name="btnExit"
          Grid.Row="1" Grid.Column="0"
@@ -49,12 +50,14 @@
          HorizontalOptions="Center"
          VerticalOptions="Center" />
 
-    <Button
+      <Button
+
          x:Name="btnSubmit"
          Grid.Row="1" Grid.Column="1"
          Text="Submit"
          HorizontalOptions="Center"
          VerticalOptions="Center" />
+    
 
   </Grid>
 
