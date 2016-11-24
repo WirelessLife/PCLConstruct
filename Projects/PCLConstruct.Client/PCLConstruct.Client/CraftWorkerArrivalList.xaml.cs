@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using Xamarin.Forms;
+    using System.Linq;
+    using PCLConstruct.Client.Security;
 
     /// <summary>
     /// The list of jobs and craft workers scheduled to arrive on site
@@ -14,6 +16,7 @@
         /// Determines if the tray is already opened
         /// </summary>
         private bool TrayOpened = true;
+        private string CurrentProjectNumber;
 
         /// <summary>
         /// Initializes the Craft Worker Arrival page
@@ -53,8 +56,14 @@
                 },
                 new Job
                 {
-                    ProjectNumber = "150008",
+                    ProjectNumber = "150007",
                     ProjectName = "Test Project C this is a very long project name to test wrapping",
+                    ProjectLocation = "Edmonton, Alberta"
+                },
+                new Job
+                {
+                    ProjectNumber = "150000",
+                    ProjectName = "No worker Project",
                     ProjectLocation = "Edmonton, Alberta"
                 }
             };
@@ -64,6 +73,15 @@
             this.JobList.ItemSelected += this.JobList_ItemSelected;
 
             this.CraftWorkerList.ItemSelected += this.CraftWorkerList_ItemSelected;
+
+            this.LogoutButton.Clicked += LogoutButton_Clicked;
+        }
+
+        private void LogoutButton_Clicked(object sender, EventArgs e)
+        {
+            AzureADAuth auth = new AzureADAuth();
+            auth.ClearCache();
+            auth.AuthenticateUser();
         }
 
         private void CollapseTrayOnTap(View arg1, object arg2)
@@ -122,6 +140,8 @@
             }
 
             this.DisplayAlert("Item Selected", ((CraftWorker)e.SelectedItem).CraftWorkerName, "Ok");
+
+            
         }
 
         /// <summary>
@@ -136,7 +156,7 @@
         {
             if (e.SelectedItem == null)
             {
-                // Shows the welcome label and hides the list label. The list won't have any items in it
+                // Shows the welcome label and hides the list label. The list won"t have any items in it
                 this.WelcomeLabel.IsVisible = true;
                 this.ListLabel.IsVisible = false;
                 this.CraftWorkerList.ItemsSource = new List<CraftWorker>();
@@ -147,45 +167,20 @@
             this.WelcomeLabel.IsVisible = false;
             this.ListLabel.IsVisible = true;
 
-            this.CraftWorkerList.ItemsSource = new List<CraftWorker>
+            CurrentProjectNumber = ((Job)e.SelectedItem).ProjectNumber;
+
+            var newtempCraftWorkerList = tempCraftWorkerList.Where(x => x.ProjectNumber == CurrentProjectNumber);
+
+            if (newtempCraftWorkerList.Any())
             {
-                new CraftWorker
-                {
-                    FirstName = "Anna",
-                    LastName = "Song",
-                    Status = "Completed",
-                    IDType = "Drivers licence",
-                    IDValue = "123456789"
-                },
-                new CraftWorker {
-                    FirstName = "Kyle",
-                    LastName = "Franklin",
-                    Status = "Not Started",
-                    IDType = "Union ID",
-                    IDValue ="789456123"
-                },
-                new CraftWorker {
-                    FirstName = "Kennedy",
-                    LastName = "Roulston",
-                    Status = "Incomplete",
-                    IDType = "Union ID",
-                    IDValue ="6743"
-                },
-                new CraftWorker {
-                    FirstName = "Steven",
-                    LastName = "Briggs",
-                    Status = "Not Started",
-                    IDType = "Drivers License",
-                    IDValue ="54546-654654"
-                },
-                new CraftWorker {
-                    FirstName = "Kevin",
-                    LastName = "Chew",
-                    Status = "Completed",
-                    IDType = "Union ID",
-                    IDValue ="45435-654778"
-                }
-            };
+                this.CraftWorkerList.ItemsSource = tempCraftWorkerList.Where(x => x.ProjectNumber == CurrentProjectNumber);
+            }
+            else {
+                this.WelcomeLabel.IsVisible = true;
+                this.WelcomeLabel.Text = "No workers found for this project.";
+                this.CraftWorkerList.ItemsSource = new List<CraftWorker>();
+            }
+            
 
             //If portrait, hide the master column and bring out the detial. 
             this.HideTray();
@@ -241,6 +236,51 @@
             // If you want to stop the back button
             return false;
         }
+
+        List<CraftWorker> tempCraftWorkerList = new List<CraftWorker>
+            {
+                new CraftWorker
+                {
+                    ProjectNumber = "150008",
+                    FirstName = "Anna",
+                    LastName = "Song",
+                    Status = "Completed",
+                    IDType = "Drivers licence",
+                    IDValue = "123456789"
+                },
+                new CraftWorker {
+                    ProjectNumber = "150009",
+                    FirstName = "Kyle",
+                    LastName = "Franklin",
+                    Status = "Not Started",
+                    IDType = "Union ID",
+                    IDValue ="789456123"
+                },
+                new CraftWorker {
+                    ProjectNumber = "156000",
+                    FirstName = "Kennedy",
+                    LastName = "Roulston",
+                    Status = "Incomplete",
+                    IDType = "Union ID",
+                    IDValue ="6743"
+                },
+                new CraftWorker {
+                    ProjectNumber = "156000",
+                    FirstName = "Steven",
+                    LastName = "Briggs",
+                    Status = "Not Started",
+                    IDType = "Drivers License",
+                    IDValue ="54546-654654"
+                },
+                new CraftWorker {
+                    ProjectNumber = "150007",
+                    FirstName = "Kevin",
+                    LastName = "Chew",
+                    Status = "Completed",
+                    IDType = "Union ID",
+                    IDValue ="45435-654778"
+                }
+            };
     }
 
     /// <summary>
@@ -280,6 +320,9 @@
     /// </summary>
     public class CraftWorker
     {
+
+        public string ProjectNumber { get; set; }
+
         /// <summary>
         /// Gets or sets the firstname of the craft worker
         /// </summary>
@@ -326,6 +369,8 @@
                 return this.IDType + " - " + this.IDValue;
             }
         }
+
+
 
         /// <summary>
         /// Gets the image to use as the source for completed status of the form
