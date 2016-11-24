@@ -13,15 +13,16 @@ namespace PCLConstruct.Client.Security
     {
         public bool MfAuthenticateUser(AzureADAuth azureauth)
         {
+            bool success = false;
             HttpClient httpClient = new HttpClient();
             Uri _uri = new Uri("http://pcl-dev-pclconstruct-api.azurewebsites.net/api/authkey");
 
             azureauth.BuildAuthHeader(ref httpClient);
-            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
             var response = httpClient.GetAsync(_uri);
             var responseBody = response.Result.Content.ReadAsStringAsync();
 
-            return response.Result.StatusCode == HttpStatusCode.OK;
+            success = response.Result.StatusCode == HttpStatusCode.OK;
+            return success;
         }
     }
 }

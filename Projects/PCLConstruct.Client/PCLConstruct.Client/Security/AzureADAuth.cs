@@ -43,6 +43,8 @@ namespace PCLConstruct.Client.Security
             var auth = DependencyService.Get<IAuthenticator>();
             AuthenticateUser();
             httpClient.DefaultRequestHeaders.Add("Authorization", authResult.CreateAuthorizationHeader());
+
+            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
         }
 
         protected virtual void OnAuthenticated(EventArgs e)

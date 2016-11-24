@@ -15,7 +15,7 @@ namespace PCLConstruct.Client.Views
         public PinAuthView(AzureADAuth azureauth)
         {
             InitializeComponent();
-            BindingContext = new PinAuthViewModel(azureauth);
+            BindingContext = new PinAuthViewModel(azureauth, this);
         }
     }
 }

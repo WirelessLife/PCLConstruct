@@ -10,12 +10,17 @@ namespace PCLConstruct.Client
 {
     public class App : Application
     {
-        AzureADAuth auth = new AzureADAuth();
+        public AzureADAuth auth = new AzureADAuth();
 
         public App()
         {
+            Init();
+        }
+
+        public void Init()
+        {
             auth.ClearCache();
-		
+
             ContentPage content = new ContentPage
             {
                 Title = "PCL Electronic Onboarding",
@@ -36,8 +41,7 @@ namespace PCLConstruct.Client
 
         protected override void OnStart()
         {
-            auth.UserAuthenticated += OnUserAuthenticated;
-            auth.AuthenticateUser();
+            StartAuth();
 
             //if (string.IsNullOrEmpty(auth.authResult.AccessToken))
             //{
@@ -47,6 +51,12 @@ namespace PCLConstruct.Client
             //AzureADAuth auth = new AzureADAuth();
             //auth.ClearCache();
             // Handle when your app starts
+        }
+
+        public void StartAuth()
+        {
+            auth.UserAuthenticated += OnUserAuthenticated;
+            auth.AuthenticateUser();
         }
 
         protected override void OnSleep()
@@ -64,6 +74,7 @@ namespace PCLConstruct.Client
         public void OnUserAuthenticated(object sender, EventArgs e)
         {
             MainPage = new NavigationPage(new CraftWorkerArrivalList(auth.UserName));
+            //MainPage = new NavigationPage(new PinAuthView(auth));
         }
     }
 }
