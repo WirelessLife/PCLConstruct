@@ -48,6 +48,8 @@ namespace PCLConstruct.Client
                             FormEntry entText = new FormEntry();
                             layout.Children.Add(entText);
                             entText.ClassId = field.id.ToString();
+                            if(field.value != null && !String.IsNullOrWhiteSpace(field.value))
+                                entText.Text = field.value;
                             break;
                         case "number":
                             FormEntry entNumber = new FormEntry
@@ -56,6 +58,8 @@ namespace PCLConstruct.Client
                                 Keyboard = Keyboard.Numeric,
                                 ClassId = field.id.ToString()
                             };
+                            if (field.value != null && !String.IsNullOrWhiteSpace(field.value))
+                                entNumber.Text = field.value;
                             layout.Children.Add(entNumber);
                             break;
                         case "radio":
@@ -70,6 +74,9 @@ namespace PCLConstruct.Client
                                 entPicker.Items.Add(pickeritem);
                             }
 
+                            if (field.value != null && !String.IsNullOrWhiteSpace(field.value))
+                                entPicker.SelectedIndex = entPicker.Items.IndexOf(entPicker.Items.FirstOrDefault(i => i.ToString() == field.value));
+
                             layout.Children.Add(entPicker);
                             break;
                         case "date":
@@ -78,6 +85,8 @@ namespace PCLConstruct.Client
                                 Format = "MMMM dd, yyyy",
                                 ClassId = field.id.ToString()
                             };
+                            if (field.value != null && !String.IsNullOrWhiteSpace(field.value))
+                                entDate.Date = DateTime.Parse(field.value);
                             layout.Children.Add(entDate);
                             break;
                         case "boolean":
@@ -85,6 +94,10 @@ namespace PCLConstruct.Client
                             {
                                 ClassId = field.id.ToString()
                             };
+
+                            if (field.value != null && !String.IsNullOrWhiteSpace(field.value))
+                                entToggle.IsToggled = field.value.Trim().ToLower() == "true";
+                           
                             layout.Children.Add(entToggle);
                             break;
                     }
@@ -96,12 +109,14 @@ namespace PCLConstruct.Client
 
             // Bind the Help and Complete buttons
             btnHelp.Clicked += (sender, args) => {
-                //TODO
+                DisplayAlert("Help", "You have been alerted", "OK","Cancel");
             };
 
-            btnComplete.Clicked += (sender, args) => {
+            btnComplete.Clicked += (sender, args) =>
+            {
+                // if all fields are complete, set to complete status
                 this.form.status = FormStatus.Complete;
-                Navigation.RemovePage(this);
+                Navigation.PopAsync();
             };
         }
 

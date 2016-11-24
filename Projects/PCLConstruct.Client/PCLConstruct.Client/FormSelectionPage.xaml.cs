@@ -30,6 +30,14 @@ namespace PCLConstruct.Client
 
             // Bind item taps to forward to the form rendering page
             lstForms.ItemTapped += (sender, args) => { onFormSelected((Form)args.Item); };
+
+            // Bind the submit button
+            btnSubmit.Clicked += (sender, args) => {
+                string jsonToSave = JsonConvert.SerializeObject(forms);
+
+                // submit/save/whatever
+                string foo = "bar";
+            };
         }
 
         protected override void OnAppearing()

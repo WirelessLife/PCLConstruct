@@ -39,6 +39,7 @@
     </ScrollView>
 
     <Button
+         x:Name="btnSubmit"
          Grid.Row="1"
          Text="Submit"
          HorizontalOptions="Center"

@@ -16,5 +16,8 @@ namespace PCLConstruct.Client.Helpers.DTO
         public int min { get; set; }
         public int max { get; set; }
         public List<string> options { get; set; }
+
+        public bool Required { get; set; }
+
     }
 }

@@ -52,7 +52,7 @@
 
             this.JobList.ItemSelected += this.JobList_ItemSelected;
 
-            this.CraftWorkerList.ItemSelected += this.CraftWorkerList_ItemSelected;
+            this.CraftWorkerList.ItemTapped += this.CraftWorkerList_ItemTapped;
         }
 
         /// <summary>
@@ -63,15 +63,15 @@
         /// <remarks>
         /// TODO: This will need to load the form for this worker instead of displaying an alert.
         /// </remarks>
-        private async void CraftWorkerList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void CraftWorkerList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.SelectedItem == null)
+            if (e.Item == null)
             {
                 return;
             }
 
             await Navigation.PushAsync(
-                    new FormSelectionPage((CraftWorker)e.SelectedItem)
+                    new FormSelectionPage((CraftWorker)e.Item)
                 );
         }
 
