@@ -20,7 +20,7 @@ namespace PCLConstruct.Client
 
         public void Init()
         {
-           // auth.ClearCache();
+            auth.ClearCache();
 
             ContentPage content = new ContentPage
             {
