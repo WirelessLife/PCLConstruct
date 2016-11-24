@@ -14,28 +14,24 @@ namespace PCLConstruct.Client
 
         public App()
         {
-<<<<<<< HEAD
             auth.ClearCache();
-=======
 
-            //auth.ClearCache();
->>>>>>> Forms
-
-            ContentPage content = new ContentPage
-            {
-                Title = "PCL Electronic Onboarding",
-                Content = new StackLayout
-                {
-                    VerticalOptions = LayoutOptions.Center,
-                    Children = {
-                        new ActivityIndicator()
-                        {
-                            IsRunning = true,
-                            Color = Color.Black
-                        }
-                    }
-                }
-            };
+			//auth.ClearCache();
+			ContentPage content = new ContentPage
+			{
+				Title = "PCL Electronic Onboarding",
+				Content = new StackLayout
+				{
+					VerticalOptions = LayoutOptions.Center,
+					Children = {
+						new ActivityIndicator()
+						{
+							IsRunning = true,
+							Color = Color.Black
+						}
+					}
+				}
+			};
             MainPage = new NavigationPage(content);
         }
 
