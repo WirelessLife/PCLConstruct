@@ -16,14 +16,10 @@ namespace PCLConstruct.Client.ViewModels
     {
         private string _mainText;
         private string _pinNumber;
-        public AzureADAuth auth;
-        private PinAuthView View;
 
-        public PinAuthViewModel(AzureADAuth azureauth, PinAuthView view)
+        public PinAuthViewModel()
         {
             MainText = "Please pass this moblie device back to the administrator.";
-            auth = azureauth;
-            View = view;
         }
 
         ICommand authenticatePin;
@@ -75,9 +71,10 @@ namespace PCLConstruct.Client.ViewModels
         {
             MultiFactorAuth mfauth = new MultiFactorAuth();
             var currentApp = Application.Current as App;
-            if (mfauth.MfAuthenticateUser(auth))
+            if (mfauth.MfAuthenticateUser(currentApp.auth))
             {
                 //jump to next page here
+                currentApp.MainPage = new CraftWorkerArrivalList(currentApp.auth.UserName);
             }
             else
             {

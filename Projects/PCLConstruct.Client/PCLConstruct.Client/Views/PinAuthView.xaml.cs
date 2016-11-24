@@ -12,10 +12,10 @@ namespace PCLConstruct.Client.Views
 {
     public partial class PinAuthView : ContentPage
     {
-        public PinAuthView(AzureADAuth azureauth)
+        public PinAuthView()
         {
             InitializeComponent();
-            BindingContext = new PinAuthViewModel(azureauth, this);
+            BindingContext = new PinAuthViewModel();
         }
     }
 }

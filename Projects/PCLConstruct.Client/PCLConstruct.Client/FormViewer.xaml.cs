@@ -117,6 +117,7 @@ namespace PCLConstruct.Client
                 // if all fields are complete, set to complete status
                 this.form.status = FormStatus.Complete;
                 Navigation.PopAsync();
+
             };
         }
 

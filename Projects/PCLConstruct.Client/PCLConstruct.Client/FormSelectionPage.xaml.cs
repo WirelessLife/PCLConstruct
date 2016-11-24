@@ -8,6 +8,7 @@ using PCLConstruct.Client.Helpers.DTO;
 using Newtonsoft.Json;
 
 using Xamarin.Forms;
+using PCLConstruct.Client.Views;
 
 namespace PCLConstruct.Client
 {
@@ -37,6 +38,12 @@ namespace PCLConstruct.Client
 
                 // submit/save/whatever
                 string foo = "bar";
+
+                //if save success, jump to the pin auth page.
+
+                Navigation.PushAsync(
+                   new PinAuthView()
+               );
             };
         }
 
