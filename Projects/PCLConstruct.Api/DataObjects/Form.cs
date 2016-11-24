@@ -8,7 +8,7 @@ namespace PCLConstruct.Api.DataObjects
     {
         public Guid Id { get; set; }
         public String Name { get; set; }
-        public String Staus { get; set; }
+        public String Status { get; set; }
 
     }
 }

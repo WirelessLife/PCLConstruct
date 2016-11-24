@@ -10,6 +10,7 @@ using PCLConstruct.Api.Models;
 
 namespace PCLConstruct.Api.Controllers
 {
+    [Authorize]
     public class FormController : TableController<Form>
     {
         

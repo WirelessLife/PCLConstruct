@@ -32,6 +32,7 @@ namespace PCLConstruct.Api.Controllers
                 PfAuthParams pfAuthParams = new PfAuthParams();
                 pfAuthParams.Username = identity.Claims.First(c => c.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn")).Value;
                 //TODO:  Validate that authphone number does not have hyphens.
+                //TODO: Pull the mobile Phone number from the graph for the current user.
                 pfAuthParams.Phone = ConfigurationManager.AppSettings["AuthKeyPhone"];
                 pfAuthParams.Mode = pf_auth.MODE_STANDARD;
                 pfAuthParams.CountryCode = "1";

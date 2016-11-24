@@ -9,6 +9,7 @@ using PCLConstruct.Api.Models;
 
 namespace PCLConstruct.Api.Controllers
 {
+    [Authorize]
     public class CraftWorkerController : TableController<CraftWorker>
     {
         protected override void Initialize(HttpControllerContext controllerContext)

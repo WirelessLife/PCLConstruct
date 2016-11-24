@@ -241,6 +241,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppSettingsDev.config" />
     <None Include="Helpers\cert_key.p12" />
     <None Include="Properties\PublishProfiles\PCL-Dev-PCLConstruct-Api - Web Deploy.pubxml" />
     <Content Include="Service References\AzureAD\ConnectedService.json" />
