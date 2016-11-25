@@ -21,7 +21,7 @@ namespace PCLConstruct.Client
             this.form = form;
             InitializeComponent();
 
-            this.Title = form.name;
+            this.Title = form.Name;
 
             layout = new StackLayout();
             layout.Orientation = StackOrientation.Vertical;
@@ -115,7 +115,7 @@ namespace PCLConstruct.Client
             btnComplete.Clicked += (sender, args) =>
             {
                 // if all fields are complete, set to complete status
-                this.form.status = FormStatus.Complete;
+                this.form.status2 = FormStatus.Complete;
                 Navigation.PopAsync();
             };
         }

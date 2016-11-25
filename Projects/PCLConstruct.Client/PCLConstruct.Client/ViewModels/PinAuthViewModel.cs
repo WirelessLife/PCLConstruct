@@ -73,9 +73,9 @@ namespace PCLConstruct.Client.ViewModels
             //{
             //    MainText = "Pin Number Authenticated.";
             //}
-
-            MultiFactorAuth mfauth = new MultiFactorAuth();
-            mfauth.MfAuthenticateUser(auth);
+            await Services.DataService.Default.MfAuthenticateUser();
+            //MultiFactorAuth mfauth = new MultiFactorAuth();
+            //mfauth.MfAuthenticateUser(auth);
         }
     }
 }

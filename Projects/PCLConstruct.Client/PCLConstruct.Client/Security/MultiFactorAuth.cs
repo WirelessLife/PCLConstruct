@@ -17,7 +17,6 @@ namespace PCLConstruct.Client.Security
             Uri _uri = new Uri("http://pcl-dev-pclconstruct-api.azurewebsites.net/api/authkey");
 
             azureauth.BuildAuthHeader(ref httpClient);
-            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
             var response = httpClient.GetAsync(_uri);
             var responseBody = response.Result.Content.ReadAsStringAsync();
 

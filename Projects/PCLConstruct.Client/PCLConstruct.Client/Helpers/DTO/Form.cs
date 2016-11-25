@@ -11,8 +11,12 @@ namespace PCLConstruct.Client.Helpers.DTO
 {
     public class Form : INotifyPropertyChanged
     {
+       
+        public string Id { get; set; }
+        //public string description { get; set; }
+
         string _name;
-        public string name
+        public string Name
         {
             get { return _name; }
             set
@@ -20,8 +24,10 @@ namespace PCLConstruct.Client.Helpers.DTO
                 _name = value; OnPropertyChanged();
             }
         }
-        public string id { get; set; }
-        public string description { get; set; }
+
+        public string Data { get; set; }
+
+        public string Status { get; set; }
 
         List<Section> _sections;
         public List<Section> sections
@@ -34,12 +40,14 @@ namespace PCLConstruct.Client.Helpers.DTO
         }
 
         private FormStatus _status;
-        public FormStatus status
+        public FormStatus status2
         {
             get { return _status; }
             set
             {
-                _status = value; OnPropertyChanged();
+                _status = value;
+                Status = value.ToString();
+                OnPropertyChanged();
             }
         }
 

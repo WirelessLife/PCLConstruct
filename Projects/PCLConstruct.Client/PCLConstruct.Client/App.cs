@@ -14,7 +14,9 @@ namespace PCLConstruct.Client
 
         public App()
         {
-            auth.ClearCache();
+            SQLitePCL.Batteries.Init();
+
+           // auth.ClearCache();
 		
             ContentPage content = new ContentPage
             {
@@ -37,6 +39,7 @@ namespace PCLConstruct.Client
         protected override void OnStart()
         {
             auth.UserAuthenticated += OnUserAuthenticated;
+            //OnUserAuthenticated(null, null);
             auth.AuthenticateUser();
 
             //if (string.IsNullOrEmpty(auth.authResult.AccessToken))
@@ -63,7 +66,7 @@ namespace PCLConstruct.Client
 
         public void OnUserAuthenticated(object sender, EventArgs e)
         {
-            MainPage = new NavigationPage(new CraftWorkerArrivalList(auth.UserName));
+            MainPage = new NavigationPage(new CraftWorkerArrivalList(auth));
         }
     }
 }

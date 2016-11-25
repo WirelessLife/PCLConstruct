@@ -46,8 +46,8 @@ namespace PCLConstruct.Client
         }
 
         private async Task onFormSelected(Form tappedForm){
-            Form formInList = forms.FirstOrDefault(f => f.id == tappedForm.id);
-            tappedForm.status = Controls.FormStatus.InProgress;
+            Form formInList = forms.FirstOrDefault(f => f.Id == tappedForm.Id);
+            tappedForm.status2 = Controls.FormStatus.InProgress;
           
             await Navigation.PushAsync(new FormViewer(tappedForm));
         }
