@@ -12,5 +12,6 @@ namespace PCLConstruct.Client.Security
         public string Authority;
         public string ReturnURI;
         public string GraphURI;
+        public string MobileService;
     }
 }

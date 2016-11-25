@@ -36,12 +36,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Controls\Interfaces\IValidatable.cs" />
     <Compile Include="CraftWorkerArrivalList.xaml.cs">
       <DependentUpon>CraftWorkerArrivalList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Behaviors\FormEntryBehavior.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Security\AzureSettings.cs" />
-    <Compile Include="Security\MultiFactorAuth.cs" />
+    <Compile Include="Services\DataService.cs" />
     <Compile Include="ViewModels\PinAuthViewModel.cs" />
     <Compile Include="Controls\FormCompletionIndicator.cs" />
     <Compile Include="Controls\FormLabel.cs" />
@@ -50,10 +52,10 @@
     <Compile Include="Controls\FormDropDownList.cs" />
     <Compile Include="Controls\FormSectionLabel.cs" />
     <Compile Include="Controls\FormEntry.cs" />
-    <Compile Include="FormSelectionPage.xaml.cs">
+    <Compile Include="Pages\FormSelectionPage.xaml.cs">
       <DependentUpon>FormSelectionPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FormViewer.xaml.cs">
+    <Compile Include="Pages\FormViewer.xaml.cs">
       <DependentUpon>FormViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DTO\Field.cs" />
@@ -135,13 +137,13 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSelectionPage.xaml">
+    <EmbeddedResource Include="Pages\FormSelectionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormViewer.xaml">
+    <EmbeddedResource Include="Pages\FormViewer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -16,7 +16,10 @@
       HorizontalOptions="Center"
       Text="Call Verification"
       Command="{Binding AuthenticatePinCommand}"
-    />  
+      IsVisible="{Binding ShowButton}"
+    />
+    
+    <Label Text="Answer your phone and press pound (#)" IsVisible="{Binding ShowMessage}" HorizontalOptions="Center" />
   </StackLayout>
   
   

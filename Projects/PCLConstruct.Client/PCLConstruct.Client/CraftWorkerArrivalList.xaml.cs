@@ -6,6 +6,10 @@
     using Xamarin.Forms;
     using System.Linq;
     using PCLConstruct.Client.Security;
+    using System.Threading.Tasks;
+    using Services;
+    using Helpers;
+    using Views;
 
     /// <summary>
     /// The list of jobs and craft workers scheduled to arrive on site
@@ -16,7 +20,7 @@
         /// Determines if the tray is already opened
         /// </summary>
         private bool TrayOpened = true;
-        private string CurrentProjectNumber;
+        AzureADAuth auth = new AzureADAuth();
 
         /// <summary>
         /// Initializes the Craft Worker Arrival page
@@ -25,50 +29,28 @@
         /// <remarks>
         /// Need to hook up the job list to real data
         /// </remarks>
-        public CraftWorkerArrivalList(string userName)
+        public CraftWorkerArrivalList(AzureADAuth azureauth)
         {
-            InitializeComponent();
+            Task.Factory.StartNew(async () =>
+            {
+                await Task.Delay(100);
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    // load the jobs in the system
+                    var jobs = await DataService.Default.GetAllJobs();
+                    this.JobList.ItemsSource = jobs;
+                });
+            });
 
+            InitializeComponent();
+            auth = azureauth;
             this.ExpandTray.GestureRecognizers.Add(new TapGestureRecognizer(this.ExpandTrayOnTap));
             //this.CollapseTray.Clicked += CollapseTray_Clicked;
             this.CollapseTray.GestureRecognizers.Add(new TapGestureRecognizer(this.CollapseTrayOnTap));
 
             this.ListLabel.IsVisible = false;
 
-            this.JobList.ItemsSource = new List<Job>
-            {
-                new Job
-                {
-                    ProjectNumber = "150009",
-                    ProjectName = "Edmonton Arena",
-                    ProjectLocation = "Location not available"
-                },
-                new Job {
-                    ProjectNumber = "156000",
-                    ProjectName = "EIA Upgrade",
-                    ProjectLocation = "Location not available"
-                },
-                new Job
-                {
-                    ProjectNumber = "150008",
-                    ProjectName = "Test Project C",
-                    ProjectLocation = "Edmonton, Alberta"
-                },
-                new Job
-                {
-                    ProjectNumber = "150007",
-                    ProjectName = "Test Project C this is a very long project name to test wrapping",
-                    ProjectLocation = "Edmonton, Alberta"
-                },
-                new Job
-                {
-                    ProjectNumber = "150000",
-                    ProjectName = "No worker Project",
-                    ProjectLocation = "Edmonton, Alberta"
-                }
-            };
-
-            this.AdministratorNameLabel.Text = userName;
+            this.AdministratorNameLabel.Text = auth.UserName;
 
             this.JobList.ItemSelected += this.JobList_ItemSelected;
 
@@ -77,7 +59,7 @@
             this.LogoutButton.Clicked += LogoutButton_Clicked;
         }
 
-        private void LogoutButton_Clicked(object sender, EventArgs e)
+        private async void LogoutButton_Clicked(object sender, EventArgs e)
         {
             AzureADAuth auth = new AzureADAuth();
             auth.ClearCache();
@@ -139,11 +121,16 @@
                 return;
             }
 
-            await Navigation.PushAsync(
-                    new FormSelectionPage((CraftWorker)e.Item)
-                );
-        }
+     
+           var Selectionpage = new FormSelectionPage((CraftWorker)e.Item);
 
+            await Navigation.PushAsync(
+                    Selectionpage
+                );
+            
+
+        }
+       
         /// <summary>
         /// Handles when a job item is selected. Loads the Craft Worker list.
         /// </summary>
@@ -152,12 +139,13 @@
         /// <remarks>
         /// TODO: Need to hook this up to real data
         /// </remarks>
-        private void JobList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void JobList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
             {
                 // Shows the welcome label and hides the list label. The list won"t have any items in it
                 this.WelcomeLabel.IsVisible = true;
+                this.CraftWorkerList.IsVisible = false;
                 this.ListLabel.IsVisible = false;
                 this.CraftWorkerList.ItemsSource = new List<CraftWorker>();
                 return;
@@ -165,18 +153,20 @@
 
             // Shows the list label and hides the welcome label
             this.WelcomeLabel.IsVisible = false;
+            this.CraftWorkerList.IsVisible = true;
             this.ListLabel.IsVisible = true;
 
-            CurrentProjectNumber = ((Job)e.SelectedItem).ProjectNumber;
+            var jobId = ((Job)e.SelectedItem).Id;
 
-            var newtempCraftWorkerList = tempCraftWorkerList.Where(x => x.ProjectNumber == CurrentProjectNumber);
+            var newtempCraftWorkerList = await DataService.Default.GetCraftWorkers(jobId);
 
             if (newtempCraftWorkerList.Any())
             {
-                this.CraftWorkerList.ItemsSource = tempCraftWorkerList.Where(x => x.ProjectNumber == CurrentProjectNumber);
+                this.CraftWorkerList.ItemsSource = newtempCraftWorkerList;
             }
             else {
                 this.WelcomeLabel.IsVisible = true;
+                this.CraftWorkerList.IsVisible = false;
                 this.WelcomeLabel.Text = "No workers found for this project.";
                 this.CraftWorkerList.ItemsSource = new List<CraftWorker>();
             }
@@ -237,50 +227,7 @@
             return false;
         }
 
-        List<CraftWorker> tempCraftWorkerList = new List<CraftWorker>
-            {
-                new CraftWorker
-                {
-                    ProjectNumber = "150008",
-                    FirstName = "Anna",
-                    LastName = "Song",
-                    Status = "Completed",
-                    IDType = "Drivers licence",
-                    IDValue = "123456789"
-                },
-                new CraftWorker {
-                    ProjectNumber = "150009",
-                    FirstName = "Kyle",
-                    LastName = "Franklin",
-                    Status = "Not Started",
-                    IDType = "Union ID",
-                    IDValue ="789456123"
-                },
-                new CraftWorker {
-                    ProjectNumber = "156000",
-                    FirstName = "Kennedy",
-                    LastName = "Roulston",
-                    Status = "Incomplete",
-                    IDType = "Union ID",
-                    IDValue ="6743"
-                },
-                new CraftWorker {
-                    ProjectNumber = "156000",
-                    FirstName = "Steven",
-                    LastName = "Briggs",
-                    Status = "Not Started",
-                    IDType = "Drivers License",
-                    IDValue ="54546-654654"
-                },
-                new CraftWorker {
-                    ProjectNumber = "150007",
-                    FirstName = "Kevin",
-                    LastName = "Chew",
-                    Status = "Completed",
-                    IDType = "Union ID",
-                    IDValue ="45435-654778"
-                }
-            };
+        
     }
 
     /// <summary>
@@ -288,6 +235,7 @@
     /// </summary>
     public class Job
     {
+        public string Id { get; set; }
         /// <summary>
         /// Gets or sets the project number of the job
         /// </summary>
@@ -296,23 +244,17 @@
         /// <summary>
         /// Gets or sets the project location of the job
         /// </summary>
-        public string ProjectLocation { get; set; }
+        public string Location { get; set; }
 
         /// <summary>
         /// Gets or sets the project name of the job
         /// </summary>
-        public string ProjectName { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets the concatenated project display name. Formatted as ProjectNumber - ProjectName
         /// </summary>
-        public string ProjectDisplayValue
-        {
-            get
-            {
-                return this.ProjectNumber + " - " + this.ProjectName;
-            }
-        }
+        public string ProjectDisplayValue { get; set; }
     }
 
     /// <summary>
@@ -320,6 +262,7 @@
     /// </summary>
     public class CraftWorker
     {
+        public string Id { get; set; }
 
         public string ProjectNumber { get; set; }
 
@@ -341,57 +284,27 @@
         /// <summary>
         /// Gets or sets the id type for this worker to identify who he is
         /// </summary>
-        public string IDType { get; set; }
+        public string IdentifierType { get; set; }
 
         /// <summary>
         /// Gets or sets the value for the id type provided
         /// </summary>
-        public string IDValue { get; set; }
+        public string IdentifierValue { get; set; }
 
         /// <summary>
         /// Gets the concated craft worker name. Formatted Lastname, Firstname
         /// </summary>
-        public string CraftWorkerName
-        {
-            get
-            {
-                return this.LastName + ", " + this.FirstName;
-            }
-        }
+        public string CraftWorkerName { get; set; }
 
         /// <summary>
         /// Gets the concatenated unique identifier provided for this worker
         /// </summary>
-        public string CraftWorkerID
-        {
-            get
-            {
-                return this.IDType + " - " + this.IDValue;
-            }
-        }
-
-
+        public string CraftWorkerID { get; set; }
 
         /// <summary>
         /// Gets the image to use as the source for completed status of the form
         /// </summary>
-        public string ImageName
-        {
-            get
-            {
-                switch (this.Status)
-                {
-                    case "Not Started":
-                        return "NotStarted.png";
-                    case "Completed":
-                        return "Completed.png";
-                    case "Incomplete":
-                        return "Incompleted.png";
-                }
-
-                return "NotStarted.png";
-            }
-        }
+        public string ImageName { get; set; }
 
 
 

@@ -1,6 +1,7 @@
 {
-  "ClientID": "f37dac5f-fe14-442f-99aa-18ee1fa0f46b",
-  "Authority": "https://login.windows.net/common",
-  "ReturnURI": "https://pcl-dev-pclconstruct-api.azurewebsites.net/.auth/login/done",
-  "GraphURI": "https://pclconnects.onmicrosoft.com/pclconstructpoc2"
+    "ClientID": "f37dac5f-fe14-442f-99aa-18ee1fa0f46b",
+    "Authority": "https://login.windows.net/common",
+    "ReturnURI": "https://pcl-dev-pclconstruct-api.azurewebsites.net/.auth/login/done",
+    "GraphURI": "https://pclconnects.onmicrosoft.com/pclconstructpoc",
+    "MobileService": "https://pcl-dev-pclconstruct-api.azurewebsites.net"
 }
