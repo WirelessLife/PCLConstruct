@@ -1,17 +1,22 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.OData;
+using Microsoft.ApplicationInsights;
 using Microsoft.Azure.Mobile.Server;
 using PCLConstruct.Api.DataObjects;
 using PCLConstruct.Api.Models;
 
 namespace PCLConstruct.Api.Controllers
 {
-    [Authorize]
+    
     public class CraftWorkerController : TableController<CraftWorker>
     {
+        TelemetryClient tc = new TelemetryClient();
+
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
@@ -22,16 +27,45 @@ namespace PCLConstruct.Api.Controllers
         }
 
         // GET tables/CraftWorker
-        public IQueryable<CraftWorker> GetAllCraftWorkers()
+        // Changed return type from IQueryable 
+        //public IEnumerable<CraftWorker> GetAllCraftWorkers()
+        //{
+        //    try
+        //    {
+        //        return Query();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        tc.TrackException(ex);
+        //        throw;
+        //    }
+
+            
+        //}
+
+
+        public IEnumerable<CraftWorker> GetCraftWorker(Guid id)
         {
-            return Query();
+            try
+            {
+                return Query().Where(c => c.Job.Id.Equals(id));
+            }
+            catch (Exception ex)
+            {
+                tc.TrackException(ex);
+                throw;
+            }
+
         }
 
+
+
+
         // GET tables/CraftWorker/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public SingleResult<CraftWorker> GetCraftWorker(string id)
-        {
-            return Lookup(id);
-        }
+        //public SingleResult<CraftWorker> GetCraftWorker(string id)
+        //{
+        //    return Lookup(id);
+        //}
 
         // PATCH tables/CraftWorker/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public Task<CraftWorker> PatchCraftWorker(string id, Delta<CraftWorker> patch)

@@ -15,7 +15,7 @@ using Microsoft.Azure.Mobile.Server.Config;
 namespace PCLConstruct.Api.Controllers
 {
     [MobileAppController]
-    [Authorize]
+    
 
     public class AuthKeyController : ApiController
     {
@@ -30,7 +30,10 @@ namespace PCLConstruct.Api.Controllers
                 var identity = User.Identity as ClaimsIdentity;
                 // Add call details from the user database.
                 PfAuthParams pfAuthParams = new PfAuthParams();
-                pfAuthParams.Username = identity.Claims.First(c => c.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn")).Value;
+
+                pfAuthParams.Username = "bstearns@pcl.com";
+                //pfAuthParams.Username = identity.Claims.First(c => c.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn")).Value;
+                
                 //TODO:  Validate that authphone number does not have hyphens.
                 //TODO: Pull the mobile Phone number from the graph for the current user.
                 pfAuthParams.Phone = ConfigurationManager.AppSettings["AuthKeyPhone"];

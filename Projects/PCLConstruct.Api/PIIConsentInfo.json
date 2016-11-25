@@ -1,0 +1,127 @@
+[{
+        "name": "Consent for the Collection, Use and Disclosure of Personal Information",
+        "id": "2",
+        "description": "",
+        "sections": [{
+            "text": "",
+            "fields": [{
+                "id": 301,
+                "text": "Name",
+                "type": "text",
+                "placeholder": "",
+                "value": "",
+                "min": 1,
+                "max": 255,
+                "required": true
+            }, {
+                "id": 302,
+                "text": "SIN",
+                "type": "number",
+                "placeholder": "",
+                "value": "",
+                "min": 1,
+                "max": 9,
+                "required": true
+            }, {
+                "id": 303,
+                "text": "Date of Birth",
+                "type": "date",
+                "placeholder": "",
+                "value": "",
+                "min": 1,
+                "max": 10,
+                "required": true
+            }]
+        }, {
+            "text": "Journeyman/Apprentice Checklist",
+            "fields": [{
+                "id": 304,
+                "text": "Is this person a Journeyman in your province?",
+                "type": "boolean",
+                "placeholder": "",
+                "value": "",
+                "required": false
+            }, {
+                "id": 305,
+                "text": "Please confirm Journeyman's Number",
+                "type": "number",
+                "placeholder": "",
+                "value": "",
+                "min": 1,
+                "max": 10,
+                "required": false
+            }, {
+                "id": 306,
+                "text": "Date of Issue",
+                "type": "date",
+                "placeholder": "",
+                "value": "",
+                "required": false
+            }, {
+                "id": 307,
+                "text": "Does this person's certificate have a Red Seal?",
+                "type": "boolean",
+                "placeholder": "",
+                "value": "",
+                "required": false
+            }, {
+                "id": 308,
+                "text": "Please confirm Red Seal No",
+                "type": "number",
+                "placeholder": "",
+                "value": "",
+                "min": 1,
+                "max": 10,
+                "required": false
+            }, {
+                "id": 309,
+                "text": "Date of Issue",
+                "type": "date",
+                "placeholder": "",
+                "value": "",
+                "required": false
+            }, {
+                "id": 310,
+                "text": "If no Read Seal, is this person eligible to write the Red Deal exam?",
+                "type": "boolean",
+                "placeholder": "",
+                "value": "",
+                "required": false
+            }, {
+                "id": 311,
+                "text": "Is this person a current (active) Apprentice in your province?",
+                "type": "boolean",
+                "placeholder": "",
+                "value": "",
+                "required": false
+            }, {
+                "id": 312,
+                "text": "Is this person an Apprentice or Journeyman in more than one trade?",
+                "type": "boolean",
+                "placeholder": "",
+                "value": "",
+                "required": false
+            }, {
+                "id": 313,
+                "text": "Other Trades",
+                "type": "text",
+                "placeholder": "",
+                "value": "",
+                "required": false
+            }, {
+                "id": 314,
+                "text": "",
+                "type": "text",
+                "placeholder": "",
+                "value": "",
+                "required": false
+            }, {
+                "id": 315,
+                "text": "Is this Apprentice allowed to use employment hours from Alberta towards his Apprenticeship in the province?",
+                "type": "boolean",
+                "placeholder": "",
+                "value": "",
+                "required": false
+            }]
+        }]
+    }]

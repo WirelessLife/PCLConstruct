@@ -1,0 +1,117 @@
+[{
+        "name": "Direct Deposit Application / Change Form",
+        "id": "2",
+        "description": "",
+        "sections": [{
+            "text": "",
+            "fields": [{
+                    "id": 317,
+                    "text": "Employee Name",
+                    "type": "text",
+                    "placeholder": "",
+                    "value": "",
+                    "min": 1,
+                    "max": 255,
+                    "required": true
+                }, {
+                    "id": 318,
+                    "text": "Project Name",
+                    "type": "text",
+                    "placeholder": "",
+                    "value": "",
+                    "min": 1,
+                    "max": 255,
+                    "required": true
+                }, {
+                    "id": 319,
+                    "text": "Employee No.",
+                    "type": "number",
+                    "placeholder": "",
+                    "value": "",
+                    "min": 1,
+                    "max": 6,
+                    "required": true
+                }, {
+                    "id": 320,
+                    "text": "Project No.",
+                    "type": "number",
+                    "placeholder": "",
+                    "value": "",
+                    "min": 1,
+                    "max": 20,
+                    "required": true
+                }, {
+                    "id": 321,
+                    "text": "Action Type",
+                    "type": "radio",
+                    "placeholder": "",
+                    "value": "",
+                    "required": true,
+                    "options": [
+                        "Setup",
+                        "Change",
+                        "Reactivate (re-hires only)"
+                    ]
+                }, {
+                    "text": "I hearby authorize Intracon Power Inc. to deposit my payroll directly to the account information provided with this form.",
+                    "type": "label"
+                }, {
+                    "text": "Please review the following information pertaining to Direct Deposit prior to authorization",
+                    "type": "label"
+                }, {
+                    "text": "   1. Payments are deposited only on designated 'paydays'.",
+                    "type": "label"
+                }, {
+                    "id": 322,
+                    "text": "   2. A void personal cheque or bank certification of branch, bank, and account number MUST be provided with this form. Please indicate the type of account by seecting one of the following",
+                    "type": "radio",
+                    "placeholder": "",
+                    "value": "",
+                    "required": true,
+                    "options": [
+                        "Chequing Account",
+                        "Savings Account",
+                        "Previously set up with PCL Intracon Power. No change."
+                    ]
+                }, {
+                    "text": "   3. Changes to direct deposit information should be submitted 10 days in advance.",
+                    "type": "label"
+                },
+
+                {
+                    "id": 323,
+                    "text": "Bank #",
+                    "type": "number",
+                    "placeholder": "",
+                    "value": "",
+                    "min": 1,
+                    "max": 20,
+                    "required": true
+                }, {
+                    "id": 323,
+                    "text": "Branch #",
+                    "type": "number",
+                    "placeholder": "",
+                    "value": "",
+                    "min": 1,
+                    "max": 20,
+                    "required": true
+                },
+
+                {
+                    "id": 323,
+                    "text": "Account #",
+                    "type": "number",
+                    "placeholder": "",
+                    "value": "",
+                    "min": 1,
+                    "max": 20,
+                    "required": true
+                }
+
+
+            ]
+        }]
+    }
+
+]

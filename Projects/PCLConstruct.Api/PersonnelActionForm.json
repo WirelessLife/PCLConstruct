@@ -1,0 +1,279 @@
+[{
+	"name": "Personnel Action Forms",
+	"id": "1",
+	"description": "",
+	"sections": [{
+		"text": "Employee Information",
+		"fields": [{
+			"id": 1,
+			"text": "Employee SIN #",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 9,
+			"max": 9,
+			"required": true
+		}, {
+			"id": 2,
+			"text": "Employee #",
+			"type": "number",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 6,
+			"required": true
+		}, {
+			"id": 3,
+			"text": "First Name",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 255,
+			"required": true
+		}, {
+			"id": 4,
+			"text": "Middle Initial",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 10,
+			"required": false
+		}, {
+			"id": 5,
+			"text": "Last Name",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 255,
+			"required": true
+		}, {
+			"id": 6,
+			"text": "Maritial Status",
+			"type": "radio",
+			"placeholder": "",
+			"value": "",
+			"options": [
+				"Married",
+				"Single",
+				"Common-Law"
+			],
+			"required": true
+		}, {
+			"id": 7,
+			"text": "Date of Birth",
+			"type": "date",
+			"placeholder": "",
+			"value": "",
+			"required": true
+		}, {
+			"id": 8,
+			"text": "Have you previously worked under the Temporary Foreign Worker program with the PCL family of companies?",
+			"type": "boolean",
+			"placeholder": "",
+			"value": "",
+			"required": false
+		}, {
+			"id": 9,
+			"text": "The response to the following information request is voluntary. PCL is an equal opportunity employer, and will endeavor to employ as many local and Aboriginal personnel as possible. Please check the response that applies to you",
+			"type": "radio",
+			"placeholder": "Optional...",
+			"value": "",
+			"required": false,
+			"options": [
+				"Status Indian/First Nations",
+				"Non-Status Indian/First Nations",
+				"Metis",
+				"Inuit"
+			]
+		}]
+	}, {
+		"text": "Employee Address Information",
+		"fields": [{
+			"id": 101,
+			"text": "Address",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 100,
+			"required": true
+		}, {
+			"id": 102,
+			"text": "City",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 100,
+			"required": true
+		}, {
+			"id": 103,
+			"text": "Province",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 255,
+			"required": true
+		}, {
+			"id": 104,
+			"text": "Postal Code",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 6,
+			"required": true
+		}, {
+			"id": 105,
+			"text": "Home Phone #",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 20,
+			"required": false
+		}, {
+			"id": 106,
+			"text": "Cell Phone #",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 20,
+			"required": false
+		}, {
+			"id": 107,
+			"text": "Mailing Address(if different than residence)",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 100,
+			"required": false
+		}, {
+			"id": 108,
+			"text": "Mailing City (if different than residence)",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 100,
+			"required": false
+		}, {
+			"id": 109,
+			"text": "Mailing Province (if different than residence)",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 255,
+			"required": false
+		}, {
+			"id": 110,
+			"text": "Mailing Postal Code (if different than residence)",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 6,
+			"required": false
+		}, {
+			"id": 111,
+			"text": "Email Address",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 50,
+			"required": false
+		}]
+	}, {
+		"text": "Emergency Contact Information",
+		"fields": [{
+			"id": 201,
+			"text": "Name",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 100,
+			"required": false
+		}, {
+			"id": 202,
+			"text": "Relationship",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 100,
+			"required": false
+		}, {
+			"id": 203,
+			"text": "Address",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 100,
+			"required": false
+		}, {
+			"id": 204,
+			"text": "City",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 100,
+			"required": false
+		}, {
+			"id": 205,
+			"text": "Province",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 255,
+			"required": false
+		}, {
+			"id": 206,
+			"text": "Postal Code",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 6,
+			"required": false
+		}, {
+			"id": 207,
+			"text": "Home Phone #",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 20,
+			"required": false
+		}, {
+			"id": 208,
+			"text": "Work Phone #",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 20,
+			"required": false
+		}, {
+			"id": 209,
+			"text": "Cell Phone #",
+			"type": "text",
+			"placeholder": "",
+			"value": "",
+			"min": 1,
+			"max": 20,
+			"required": false
+		}]
+	}]
+}]
