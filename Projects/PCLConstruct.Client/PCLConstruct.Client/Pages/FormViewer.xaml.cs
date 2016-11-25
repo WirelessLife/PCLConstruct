@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PCLConstruct.Client.Helpers.DTO;
-
+using PCLConstruct.Client.Controls.Interfaces;
 using Xamarin.Forms;
 using PCLConstruct.Client.Controls;
 
@@ -37,7 +37,7 @@ namespace PCLConstruct.Client
                 foreach (Field field in section.fields)
                 {
                     //create label
-                    FormLabel lblText = new FormLabel();
+                    FormLabel lblText = new FormLabel(field);
                     lblText.Text = field.text;
                     layout.Children.Add(lblText);
 
@@ -45,14 +45,14 @@ namespace PCLConstruct.Client
                     switch (field.type)
                     {
                         case "text":
-                            FormEntry entText = new FormEntry();
+                            FormEntry entText = new FormEntry(field, lblText);
                             layout.Children.Add(entText);
                             entText.ClassId = field.id.ToString();
                             if(field.value != null && !String.IsNullOrWhiteSpace(field.value))
                                 entText.Text = field.value;
                             break;
                         case "number":
-                            FormEntry entNumber = new FormEntry
+                            FormEntry entNumber = new FormEntry(field, lblText)
                             {
                                 Placeholder = "",
                                 Keyboard = Keyboard.Numeric,
@@ -63,7 +63,7 @@ namespace PCLConstruct.Client
                             layout.Children.Add(entNumber);
                             break;
                         case "radio":
-                            FormDropDownList entPicker = new FormDropDownList
+                            FormDropDownList entPicker = new FormDropDownList(field, lblText)
                             {
                                 Title = "Select...",
                                 ClassId = field.id.ToString()
@@ -80,7 +80,7 @@ namespace PCLConstruct.Client
                             layout.Children.Add(entPicker);
                             break;
                         case "date":
-                            FormDate entDate = new FormDate
+                            FormDate entDate = new FormDate(field, lblText)
                             {
                                 Format = "MMMM dd, yyyy",
                                 ClassId = field.id.ToString()
@@ -90,7 +90,7 @@ namespace PCLConstruct.Client
                             layout.Children.Add(entDate);
                             break;
                         case "boolean":
-                            FormBoolean entToggle = new FormBoolean
+                            FormBoolean entToggle = new FormBoolean(field, lblText)
                             {
                                 ClassId = field.id.ToString()
                             };
@@ -117,7 +117,31 @@ namespace PCLConstruct.Client
                 // if all fields are complete, set to complete status
                 this.form.status2 = FormStatus.Complete;
                 Navigation.PopAsync();
+                // Check that all required fields are valid    
+                if (AreAllFieldsValid())
+                {
+                    this.form.status2 = FormStatus.Complete;
+                    Navigation.PopAsync();
+                }
+                else {
+                    DisplayAlert("Form Invalid", "This form could not be marked as complete because there was invalid data entered", "Ok");
+                }
             };
+        }
+
+        private bool AreAllFieldsValid() {
+            bool allValid = true;
+
+            foreach (IValidatable validatableControl in layout.Children.Where(child => child is IValidatable))
+            {
+                validatableControl.evaluateValidity();
+                if (!validatableControl.isValid)
+                {
+                    allValid = false;
+                }
+            }
+
+            return allValid;
         }
 
         protected override void OnDisappearing() {

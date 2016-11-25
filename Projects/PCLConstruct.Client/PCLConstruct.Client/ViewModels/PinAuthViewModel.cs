@@ -1,4 +1,6 @@
 ﻿using PCLConstruct.Client.Security;
+using PCLConstruct.Client.Services;
+using PCLConstruct.Client.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,15 +16,12 @@ namespace PCLConstruct.Client.ViewModels
     public class PinAuthViewModel : INotifyPropertyChanged
     {
         private string _mainText;
-
         private string _pinNumber;
-
-        public AzureADAuth auth;
-
-        public PinAuthViewModel(AzureADAuth azureauth)
+        INavigation nav;
+        public PinAuthViewModel(INavigation nav)
         {
+            this.nav = nav;
             MainText = "Please pass this moblie device back to the administrator.";
-            auth = azureauth;
         }
 
         ICommand authenticatePin;
@@ -65,17 +64,65 @@ namespace PCLConstruct.Client.ViewModels
 
         private async Task ExecutePinCheck()
         {
-            //if (PinNumber != "123456")
-            //{
-            //    MainText = "Incorrect Pin Number";
-            //}
-            //else
-            //{
-            //    MainText = "Pin Number Authenticated.";
-            //}
-            await Services.DataService.Default.MfAuthenticateUser();
-            //MultiFactorAuth mfauth = new MultiFactorAuth();
-            //mfauth.MfAuthenticateUser(auth);
+            Login();
+
+        }
+
+        private bool _ShowButton = true;
+        public bool ShowButton
+        {
+            get
+            {
+                return _ShowButton;
+            }
+            set { _ShowButton = value; OnPropertyChanged(); }
+        }
+
+        private bool _ShowMessage = false;
+        public bool ShowMessage
+        {
+            get
+            {
+                return _ShowMessage;
+            }
+            set { _ShowMessage = value; OnPropertyChanged(); }
+        }
+
+
+        public async void Login()
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                await Task.Delay(100);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    ShowMessage = true;
+                    ShowButton = false;
+                });
+            });
+
+
+            var currentApp = Application.Current as App;
+            if (await DataService.Default.MfAuthenticateUser()) 
+            {
+                //jump to next page here
+                await this.nav.PopModalAsync();
+                await App.Current.MainPage.Navigation.PopAsync();
+            }
+            else
+            {
+                var answer = await currentApp.MainPage.DisplayAlert("Error", "Phone authentication failed, do you want to try again?", "Yes", "Login using password");
+                // auth failed
+                if (answer == true)
+                {
+                    Login();
+                }
+                else
+                {
+                    currentApp.Init();
+                    currentApp.StartAuth();
+                }
+            }
         }
     }
 }

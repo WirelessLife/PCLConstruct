@@ -44,6 +44,8 @@ namespace PCLConstruct.Client.Security
             AuthenticateUser();
             httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
             httpClient.DefaultRequestHeaders.Add("Authorization", authResult.CreateAuthorizationHeader());
+
+            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
         }
 
         protected virtual void OnAuthenticated(EventArgs e)

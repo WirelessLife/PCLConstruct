@@ -8,6 +8,7 @@ using PCLConstruct.Client.Helpers.DTO;
 using Newtonsoft.Json;
 
 using Xamarin.Forms;
+using PCLConstruct.Client.Views;
 
 namespace PCLConstruct.Client
 {
@@ -27,7 +28,7 @@ namespace PCLConstruct.Client
             
             lstForms.ItemsSource = this.forms;
             lstForms.BindingContext = this;
-
+            NavigationPage.SetHasBackButton(this, false);
             // Bind item taps to forward to the form rendering page
             lstForms.ItemTapped += (sender, args) => { onFormSelected((Form)args.Item); };
 
@@ -38,10 +39,31 @@ namespace PCLConstruct.Client
                 // submit/save/whatever
                 string foo = "bar";
             };
+            btnExit.Clicked += (sender, args) =>
+            {
+                Backbutton();
+            };
         }
+
+
+        public void Backbutton()
+        {
+            OnBackButtonPressed();
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            //if save success, jump to the pin auth page.
+
+            Navigation.PushAsync(
+               new PinAuthView()
+           );
+            return true;
+        }
+
 
         protected override void OnAppearing()
         {
+            
             base.OnAppearing();
         }
 

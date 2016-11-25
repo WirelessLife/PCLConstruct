@@ -3,7 +3,9 @@ using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PCLConstruct.Client.Helpers;
 using PCLConstruct.Client.Helpers.DTO;
+using PCLConstruct.Client.Security;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,8 +27,11 @@ namespace PCLConstruct.Client.Services
 
         private MobileServiceClient _MobileService;
         IMobileServiceSyncTable<Form> _formTable;
+
+        AzureSettings _settings;
         private DataService()
         {
+            _settings = SettingsHelper.GetConfig();
         }
 
         public async Task<List<Job>> GetAllJobs()
@@ -72,7 +77,7 @@ namespace PCLConstruct.Client.Services
         private async Task<string> MakeRequest(string path)
         {
             HttpClient httpClient = new HttpClient();
-            Uri _uri = new Uri($"http://pcl-dev-pclconstruct-api.azurewebsites.net/{path}");
+            Uri _uri = new Uri($"{_settings.MobileService}/{path}");
             httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
             //httpClient.DefaultRequestHeaders.Add("Content-Type", "application/json");
 
