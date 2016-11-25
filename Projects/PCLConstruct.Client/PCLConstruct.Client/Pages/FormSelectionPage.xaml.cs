@@ -8,6 +8,7 @@ using PCLConstruct.Client.Helpers.DTO;
 using Newtonsoft.Json;
 
 using Xamarin.Forms;
+using PCLConstruct.Client.Views;
 
 namespace PCLConstruct.Client
 {
@@ -27,6 +28,7 @@ namespace PCLConstruct.Client
             
             lstForms.ItemsSource = this.forms;
             lstForms.BindingContext = this;
+            NavigationPage.SetHasBackButton(this, false);
 
             // Bind item taps to forward to the form rendering page
             lstForms.ItemTapped += (sender, args) => { onFormSelected((Form)args.Item); };
@@ -40,13 +42,33 @@ namespace PCLConstruct.Client
                     string jsonToSave = JsonConvert.SerializeObject(forms);
                     //submit here
                     await DisplayAlert("Submission Complete", "Thank you!  Please return this device to the admin", "Ok (admin only)");
-                    Navigation.PopAsync(true);
+                    //Navigation.PopAsync(true);
+                    Backbutton();
                 }
                 else {
                     DisplayAlert("Forms Incomplete","One or more of your forms are incomplete.","Ok");
                 }
 
             };
+            btnExit.Clicked += (sender, args) =>
+            {
+                Backbutton();
+            };
+        }
+
+
+        public void Backbutton()
+        {
+            OnBackButtonPressed();
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            //if save success, jump to the pin auth page.
+
+            Navigation.PushAsync(
+               new PinAuthView()
+           );
+            return true;
         }
 
         private bool AllFormsComplete() {
