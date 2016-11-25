@@ -31,9 +31,9 @@
                     <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
                   
-                  <local:FormCompletionIndicator Status="{Binding status}"/>
+                  <local:FormCompletionIndicator Status="{Binding status2}"/>
                   
-                  <Label Grid.Column="1" Text="{Binding name}" VerticalOptions="Center"/>
+                  <Label Grid.Column="1" Text="{Binding Name}" VerticalOptions="Center"/>
                 </Grid>
               
             </ViewCell>

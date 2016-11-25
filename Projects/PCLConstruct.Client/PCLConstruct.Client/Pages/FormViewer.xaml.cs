@@ -18,8 +18,10 @@ namespace PCLConstruct.Client
 
         public FormViewer(Form form)
         {
-            this.form = form;
             InitializeComponent();
+
+            form.InitSections();
+            this.form = form;
 
             this.Title = form.Name;
 
@@ -116,7 +118,6 @@ namespace PCLConstruct.Client
             {
                 // if all fields are complete, set to complete status
                 this.form.status2 = FormStatus.Complete;
-                Navigation.PopAsync();
                 // Check that all required fields are valid    
                 if (AreAllFieldsValid())
                 {
@@ -185,7 +186,10 @@ namespace PCLConstruct.Client
                         }
                     }
                 }
-            }   
+            }
+
+            // save back to the form object
+            form.SaveSections();   
         }
     }
 }

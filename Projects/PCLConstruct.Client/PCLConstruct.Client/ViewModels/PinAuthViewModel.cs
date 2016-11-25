@@ -89,40 +89,40 @@ namespace PCLConstruct.Client.ViewModels
         }
 
 
-        public async void Login()
+        public void Login()
         {
+            ShowMessage = true;
+            ShowButton = false;
+
             Task.Factory.StartNew(async () =>
             {
                 await Task.Delay(100);
-                Device.BeginInvokeOnMainThread(() =>
+                var result = await DataService.Default.MfAuthenticateUser();
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    ShowMessage = true;
-                    ShowButton = false;
+                    var currentApp = Application.Current as App;
+                    if (result)
+                    {
+                        //jump to next page here
+                        await this.nav.PopModalAsync();
+                        await App.Current.MainPage.Navigation.PopAsync();
+                    }
+                    else
+                    {
+                        var answer = await currentApp.MainPage.DisplayAlert("Error", "Phone authentication failed, do you want to try again?", "Yes", "Login using password");
+                        // auth failed
+                        if (answer == true)
+                        {
+                            Login();
+                        }
+                        else
+                        {
+                            currentApp.Init();
+                            currentApp.StartAuth();
+                        }
+                    }
                 });
             });
-
-
-            var currentApp = Application.Current as App;
-            if (await DataService.Default.MfAuthenticateUser()) 
-            {
-                //jump to next page here
-                await this.nav.PopModalAsync();
-                await App.Current.MainPage.Navigation.PopAsync();
-            }
-            else
-            {
-                var answer = await currentApp.MainPage.DisplayAlert("Error", "Phone authentication failed, do you want to try again?", "Yes", "Login using password");
-                // auth failed
-                if (answer == true)
-                {
-                    Login();
-                }
-                else
-                {
-                    currentApp.Init();
-                    currentApp.StartAuth();
-                }
-            }
         }
     }
 }
