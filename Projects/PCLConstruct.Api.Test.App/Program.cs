@@ -28,7 +28,9 @@ namespace PCLConstruct.Api.Test.App
             payload["access_token"] = tok;
             var user = client.LoginAsync(MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, payload).Result;
 
-            var key = client.InvokeApiAsync("AuthKey", HttpMethod.Get, new Dictionary<string, string>()).Result;
+            var forms = client.GetTable("form");
+
+            //var key = client.InvokeApiAsync("AuthKey", HttpMethod.Get, new Dictionary<string, string>()).Result;
 
 
         }
