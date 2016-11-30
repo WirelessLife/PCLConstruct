@@ -14,15 +14,15 @@ namespace PCLConstruct.Api.Test.App
     {
         static void Main(string[] args)
         {
-            AuthenticationContext ctx = new AuthenticationContext("https://login.windows.net/pclconnects.onmicrosoft.com");
+            AuthenticationContext ctx = new AuthenticationContext("https://login.windows.net/common");
 
-            var result = ctx.AcquireTokenAsync("https://pclconnects.onmicrosoft.com/pclconstructpoc", 
-                "f37dac5f-fe14-442f-99aa-18ee1fa0f46b", 
-                new Uri("https://pcl-dev-pclconstruct-api.azurewebsites.net/.auth/login/done"), new PlatformParameters(PromptBehavior.Auto)).Result;
+            var result = ctx.AcquireTokenAsync("", 
+                "", 
+                new Uri("https://tylermobile.azurewebsites.net/.auth/login/done"), new PlatformParameters(PromptBehavior.Auto)).Result;
 
             var tok = result.AccessToken;
 
-            var client = new MobileServiceClient("https://pcl-dev-pclconstruct-api.azurewebsites.net");
+            var client = new MobileServiceClient("https://tylermobile.azurewebsites.net");
             JObject payload = new JObject();
 
             payload["access_token"] = tok;
